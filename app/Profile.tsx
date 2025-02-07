@@ -1,4 +1,4 @@
-import ListQuests from './components/ListQuests';
+import ListQuests from './components/Profile/ListQuests';
 
 const testQuests = [
   {
@@ -24,52 +24,52 @@ const testQuests = [
   },
   {
     id: Math.random(),
-    title: 'title3',
+    title: 'title4',
+    description: 'desc4',
+    author: 'auth4',
+    time: 40,
+  },
+  {
+    id: Math.random(),
+    title: 'title5',
     description: 'desc3',
     author: 'auth3',
     time: 30,
   },
   {
     id: Math.random(),
-    title: 'title3',
+    title: 'title5',
     description: 'desc3',
     author: 'auth3',
     time: 30,
   },
   {
     id: Math.random(),
-    title: 'title3',
-    description: 'desc3',
-    author: 'auth3',
-    time: 30,
+    title: 'title5',
+    description: 'desc5',
+    author: 'auth5',
+    time: 50,
   },
   {
     id: Math.random(),
-    title: 'title3',
-    description: 'desc3',
-    author: 'auth3',
-    time: 30,
+    title: 'title6',
+    description: 'desc6',
+    author: 'auth6',
+    time: 60,
   },
   {
     id: Math.random(),
-    title: 'title3',
-    description: 'desc3',
-    author: 'auth3',
-    time: 30,
+    title: 'title7',
+    description: 'desc7',
+    author: 'auth7',
+    time: 70,
   },
   {
     id: Math.random(),
-    title: 'title3',
-    description: 'desc3',
-    author: 'auth3',
-    time: 30,
-  },
-  {
-    id: Math.random(),
-    title: 'title20',
-    description: 'desc3',
-    author: 'auth3',
-    time: 30,
+    title: 'title8',
+    description: 'desc8',
+    author: 'auth8',
+    time: 80,
   },
 ];
 
