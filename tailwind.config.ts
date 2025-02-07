@@ -10,7 +10,7 @@ export default {
     extend: {},
   },
   daisyui: {
-    themes: ['retro'],
+    themes: ['retro', 'synthwave'],
   },
 
   plugins: [require('daisyui')],
