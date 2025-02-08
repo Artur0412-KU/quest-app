@@ -5,7 +5,7 @@ import CardsQuest from './CardsQuest';
 
 function page() {
   return (
-    <div className="min-h-screen w-full bg-base-300 px-24 py-12">
+    <div className="bg-base-300 min-h-screen w-full px-24 py-12">
       {/* <Profile /> */}
       {/* <AddNewCardsQuest /> */}
       {/* <Dashboard /> */}

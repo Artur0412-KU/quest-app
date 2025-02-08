@@ -46,11 +46,11 @@ function AddNewCardsQuest() {
           </h2>
           <button className="btn btn-primary btn-active">Create</button>
         </div>
-        <label className="input input-bordered flex items-center gap-2">
+        <label className="input input-bordered flex w-1/2 items-center gap-2">
           Title:
           <input required type="text" className="grow" {...register('title')} />
         </label>
-        <label className="textarea textarea-bordered flex items-start gap-2 text-base">
+        <label className="textarea textarea-bordered flex w-1/2 items-start gap-2 text-base">
           Description:
           <textarea
             required
@@ -59,7 +59,7 @@ function AddNewCardsQuest() {
             {...register('description')}
           ></textarea>
         </label>
-        <label className="input input-bordered flex max-w-xs items-center gap-2">
+        <label className="input input-bordered flex w-1/2 items-center gap-2">
           Time:
           <input
             required
@@ -70,7 +70,7 @@ function AddNewCardsQuest() {
             {...register('time')}
           />
         </label>
-        {cards?.map((cardData, i) => (
+        {cards?.map(cardData => (
           <CardLine
             key={cardData.id}
             card={cardData}

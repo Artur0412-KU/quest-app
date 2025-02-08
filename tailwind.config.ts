@@ -9,9 +9,4 @@ export default {
   theme: {
     extend: {},
   },
-  daisyui: {
-    themes: ['retro', 'synthwave'],
-  },
-
-  plugins: [require('daisyui')],
 } satisfies Config;
