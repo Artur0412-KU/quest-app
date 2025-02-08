@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import CreateCardForm from './components/AddNewQuest/CreateCardForm';
+import CreateCardForm from './components/AddNewQuest/Card/CreateTermForm';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import CardLine from './components/AddNewQuest/CardLine';
+import CardLine from './components/AddNewQuest/Card/Term';
 import toast, { Toaster } from 'react-hot-toast';
 
 export type CardType = { id: string; term: string; definition: string };
@@ -15,13 +15,13 @@ export type Inputs = {
   cards: { term: string; definition: string }[];
 };
 
-function AddNewQuest() {
+function AddNewCardsQuest() {
   const { reset, register, handleSubmit } = useForm<Inputs>();
   const [cards, manageCards] = useState<CardType[]>([]);
 
   const onSubmit: SubmitHandler<Inputs> = data => {
     if (cards.length === 0)
-      return toast.error('You shoud have at least one card');
+      return toast.error('You shoud have at least one term');
     const newQuest = { id: Math.random().toString(), ...data, cards };
     reset();
     manageCards([]);
@@ -85,4 +85,4 @@ function AddNewQuest() {
   );
 }
 
-export default AddNewQuest;
+export default AddNewCardsQuest;

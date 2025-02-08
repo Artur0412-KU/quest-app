@@ -1,6 +1,6 @@
 'use client';
 
-import { CardType } from '@/app/AddNewQuest';
+import { CardType } from '@/app/AddNewCardsQuest';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 function CreateCardForm({ addCard }: { addCard: (card: CardType) => void }) {

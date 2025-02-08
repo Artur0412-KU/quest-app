@@ -1,11 +1,13 @@
 import Profile from './Profile';
-import AddNewQuest from './AddNewQuest';
+import AddNewCardsQuest from './AddNewCardsQuest';
+import Dashboard from './Dashboard';
 
 function page() {
   return (
-    <div className="min-h-screen w-full bg-red-300 px-24 py-12">
+    <div className="min-h-screen w-full bg-base-300 px-24 py-12">
       {/* <Profile /> */}
-      <AddNewQuest />
+      {/* <AddNewCardsQuest /> */}
+      <Dashboard />
     </div>
   );
 }
