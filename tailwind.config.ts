@@ -7,7 +7,12 @@ export default {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        'max-lg': {'max': '1024px'},
+        'max-sm': {'max': '550px'}
+      }
+    },
   },
   daisyui: {
     themes: ['retro', 'synthwave'],

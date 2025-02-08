@@ -1,5 +1,5 @@
 'use client'
-import React, {use, useState} from 'react';
+import React, {useState} from 'react';
 import CloseSvg from '@/public/icons/close.svg'
 import Google from '@/public/icons/google.svg'
 import Facebook from '@/public/icons/image.svg'
