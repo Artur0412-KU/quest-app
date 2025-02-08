@@ -1,12 +1,27 @@
-function Card() {
+'use client';
+
+import { CardType } from '@/app/AddNewCardsQuest';
+import { useState } from 'react';
+
+function Card({ data }: { data: CardType }) {
+  const { term, definition } = data;
+  const [showAnswer, setshowAnswer] = useState(false);
+
+  function handleShowAnswer() {
+    setshowAnswer(prev => !prev);
+  }
+
   return (
-    <div className="relative h-52 w-full bg-red-300">
-      <div className="card__side card__side--front absolute top-0 left-0 h-52 w-full text-3xl font-semibold perspective-dramatic">
-        Front side
+    <div className="relative flex h-[300px] w-full items-center justify-center bg-red-300">
+      <div className="text-[48px] font-semibold">
+        {showAnswer ? definition : term}
       </div>
-      <div className="card__side card__side--back absolute top-0 left-0 h-52 w-full text-3xl font-semibold perspective-dramatic">
-        Back side
-      </div>
+      <button
+        className="btn btn-soft btn-info absolute right-5 bottom-2"
+        onClick={handleShowAnswer}
+      >
+        Show answer
+      </button>
     </div>
   );
 }

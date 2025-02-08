@@ -22,16 +22,23 @@ function CardsQuest() {
   const { title, author, description, time, cards } = testData;
 
   return (
-    <div className="h-fit w-full bg-secondary p-20">
-      <div>
-        <h3>{_.upperFirst(title)}</h3>
-        <span>time</span>
+    <div className="bg-secondary flex h-fit min-w-full flex-col gap-6 p-20">
+      <div className="flex justify-between">
+        <h3 className="text-[36px] font-semibold">{_.upperFirst(title)}</h3>
+        <span className="countdown font-mono text-6xl">
+          <span style={{ '--value': time } as React.CSSProperties}>{time}</span>
+        </span>
       </div>
-      <Card />
-
-      <div>
-        <p>Author</p>
-        <p>description</p>
+      <div className="carousel w-full">
+        {cards.map(card => (
+          <Card key={card.id} data={card} />
+        ))}
+      </div>
+      This slider works with anchor links so the browser will snap vertically to
+      the image when you click buttons.
+      <div className="flex flex-col gap-2">
+        <p className="text-2xl font-semibold">{_.upperFirst(author)}</p>
+        <p>{_.upperFirst(description)}</p>
       </div>
     </div>
   );
