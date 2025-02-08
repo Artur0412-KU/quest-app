@@ -1,17 +1,10 @@
 'use client';
 
-import {
-  ChangeEvent,
-  SyntheticEvent,
-  useCallback,
-  useEffect,
-  useId,
-  useRef,
-  useState,
-} from 'react';
+import { useState } from 'react';
 import CreateCardForm from './components/AddNewQuest/CreateCardForm';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import Card from './components/AddNewQuest/Card';
+import CardLine from './components/AddNewQuest/CardLine';
+import toast, { Toaster } from 'react-hot-toast';
 
 export type CardType = { id: string; term: string; definition: string };
 
@@ -23,11 +16,18 @@ export type Inputs = {
 };
 
 function AddNewQuest() {
-  const { register, handleSubmit } = useForm<Inputs>();
+  const { reset, register, handleSubmit } = useForm<Inputs>();
   const [cards, manageCards] = useState<CardType[]>([]);
 
-  const onSubmit: SubmitHandler<Inputs> = data =>
-    console.log({ id: Math.random() + useId(), ...data, cards });
+  const onSubmit: SubmitHandler<Inputs> = data => {
+    if (cards.length === 0)
+      return toast.error('You shoud have at least one card');
+    const newQuest = { id: Math.random().toString(), ...data, cards };
+    reset();
+    manageCards([]);
+    console.log(newQuest);
+    toast.success('The quest is created');
+  };
 
   function handleAddCard(card: CardType) {
     manageCards(prevCards => [...prevCards, card]);
@@ -37,12 +37,8 @@ function AddNewQuest() {
     manageCards(prevCards => [...prevCards.filter(card => card.id !== id)]);
   }
 
-  useEffect(() => {
-    console.log(cards);
-  }, [cards]);
-
   return (
-    <div className="overflow-hidden bg-green-300 p-12">
+    <div className="flex flex-col gap-6 overflow-hidden bg-green-300 p-12">
       <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex items-center justify-between">
           <h2 className="font-boldk text-center text-3xl uppercase">
@@ -75,14 +71,16 @@ function AddNewQuest() {
           />
         </label>
         {cards?.map((cardData, i) => (
-          <Card
+          <CardLine
             key={cardData.id}
             card={cardData}
             handleDelete={handleRemoveCard}
           />
         ))}
-        <CreateCardForm addCard={handleAddCard} />
       </form>
+
+      <CreateCardForm addCard={handleAddCard} />
+      <Toaster />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { CardType } from '@/app/AddNewQuest';
 
-function Card({
+function CardLine({
   card,
   handleDelete,
 }: {
@@ -11,7 +11,7 @@ function Card({
   const { id, term, definition } = card;
 
   return (
-    <div className="mb-4 flex flex-col gap-8 rounded-xl bg-primary p-8">
+    <div className="flex flex-col gap-8 rounded-xl bg-primary p-8">
       <div className="flex w-full">
         <div className="card grid h-20 flex-grow place-items-center rounded-box bg-base-300 pb-2">
           <span className="font-bold">Term</span> {term}
@@ -29,4 +29,4 @@ function Card({
   );
 }
 
-export default Card;
+export default CardLine;
