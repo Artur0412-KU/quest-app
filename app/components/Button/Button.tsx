@@ -1,12 +1,14 @@
 import React from 'react';
 import {ButtonProps} from "@/types/types";
+import Image from "next/image";
 
-const Button = ({className, onClick, text}: ButtonProps) => {
+const Button = ({className, onClick, text, image}: ButtonProps) => {
     return (
         <button
             className={className}
         onClick={onClick}>
             {text}
+            {image && <Image src={image} alt={''}/>}
         </button>
     );
 };

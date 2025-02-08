@@ -1,6 +1,7 @@
 "use client"
 import React from 'react';
 import Login from "@/app/components/Login/Login";
+import Register from "@/app/components/Register/Register";
 
 const Header = () => {
     return (
@@ -35,6 +36,7 @@ const Header = () => {
             </div>
 
             <Login id={"my_modal_5"}/>
+            <Register id={"my_modal_6"}/>
 
         </div>
     );
