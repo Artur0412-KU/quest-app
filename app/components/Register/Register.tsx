@@ -55,7 +55,7 @@ const Register = ({id}: {id: string}) => {
                         <hr className='bg-[#DDDDDD] w-full'/>
                     </div>
                     <div className='flex flex-col gap-[16px]'>
-                        <div className='flex flex-row gap-[24px]'>
+                        <div className='grid grid-cols-2 gap-[24px]'>
                             <Input name={'First name'} type={'text'} value={firstName} onChange={handleChangeFirstName} className={"input input-bordered w-full bg-[#F8F8F8]"} />
                             <Input name={'Last name'} type={'text'} value={lastName} onChange={handleChangeLastName} className={"input input-bordered w-full bg-[#F8F8F8]"} />
                         </div>
