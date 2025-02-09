@@ -1,9 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import CreateCardForm from './components/AddNewQuest/Card/CreateTermForm';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import CardLine from './components/AddNewQuest/Card/Term';
 import toast, { Toaster } from 'react-hot-toast';
 import Heading from './components/AddNewQuest/Card/Heading';
 import Box from './components/AddNewQuest/Box';
@@ -14,41 +12,45 @@ import ButtonSmall from './components/Button/ButtonSmall';
 import { HiOutlinePuzzlePiece, HiOutlineCog8Tooth } from 'react-icons/hi2';
 import InputOrTextarea from './components/AddNewQuest/InputOrTextarea';
 import ButtonGhost from './components/Button/ButtonGhost';
+import { QuestType } from './store/questsSlice';
+
+// import CreateCardForm from './components/AddNewQuest/Card/CreateTermForm';
+// import CardLine from './components/AddNewQuest/Card/Term';
 
 export type CardType = { id: string; term: string; definition: string };
 
-export type Inputs = {
-  title: string;
-  description: string;
-  time: number;
-  victoryMessage: string;
-  defeatMessage: string;
-};
-
 function AddNewQuest() {
-  const { reset, register, handleSubmit } = useForm<Inputs>();
+  const { reset, register, handleSubmit } = useForm<QuestType>();
   const [cards, manageCards] = useState<CardType[]>([]);
+  const [time, setTime] = useState<number>(0);
   const [page, setPage] = useState<'mainSettings' | 'questions'>(
     'mainSettings',
   );
 
-  const onSubmit: SubmitHandler<Inputs> = data => {
-    if (cards.length === 0)
-      return toast.error('You shoud have at least one term');
-    const newQuest = { id: Math.random().toString(), ...data, cards };
+  const onSubmit: SubmitHandler<QuestType> = data => {
+    // if (cards.length === 0)
+    //   return toast.error('You shoud have at least one term');
+    const newQuest = { ...data, cards, id: Math.random().toString(), time };
     reset();
     manageCards([]);
+
     console.log(newQuest);
     toast.success('The quest is created');
   };
 
-  function handleAddCard(card: CardType) {
-    manageCards(prevCards => [...prevCards, card]);
+  function handleSetTime(e: React.MouseEvent<HTMLButtonElement>) {
+    const timeValue = +e.currentTarget.textContent!.split(' ').at(0)!;
+    const numberTimeValue = timeValue ? +timeValue : 0;
+    setTime(numberTimeValue);
   }
 
-  function handleRemoveCard(id: string) {
-    manageCards(prevCards => [...prevCards.filter(card => card.id !== id)]);
-  }
+  // function handleAddCard(card: CardType) {
+  //   manageCards(prevCards => [...prevCards, card]);
+  // }
+
+  // function handleRemoveCard(id: string) {
+  //   manageCards(prevCards => [...prevCards.filter(card => card.id !== id)]);
+  // }
 
   {
     /* {cards?.map(cardData => (
@@ -82,7 +84,10 @@ function AddNewQuest() {
               Tasks
             </ButtonGhost>
 
-            <button className="btn bg-brand mt-[64px] w-full px-[14px] py-[16px] text-white">
+            <button
+              className="btn bg-brand mt-[64px] w-full px-[14px] py-[16px] text-white"
+              type="submit"
+            >
               Create a quest
             </button>
           </nav>
@@ -98,11 +103,10 @@ function AddNewQuest() {
                 </label>
                 <InputOrTextarea
                   id="title"
-                  required
                   type="text"
                   inputOrTextarea="input"
                   placeholder="Enter a title, like “The Mystery of the Maya Civilization”"
-                  {...register('title')}
+                  register={{ ...register('title') }}
                 />
               </InputBox>
               <InputBox>
@@ -111,10 +115,9 @@ function AddNewQuest() {
                 </label>
                 <InputOrTextarea
                   id="description"
-                  required
                   inputOrTextarea="textarea"
                   placeholder="Add a description..."
-                  {...register('description')}
+                  register={{ ...register('description') }}
                 />
               </InputBox>
             </Box>
@@ -122,11 +125,21 @@ function AddNewQuest() {
             <Box className="col-[2/-1] row-[2/3]">
               <Heading as="h2">Total time limit</Heading>
               <ButtonBox>
-                <ButtonSmall selected={true}>No limit</ButtonSmall>
-                <ButtonSmall selected={false}>30 min</ButtonSmall>
-                <ButtonSmall selected={false}>60 min</ButtonSmall>
-                <ButtonSmall selected={false}>90 min</ButtonSmall>
-                <ButtonSmall selected={false}>120 min</ButtonSmall>
+                <ButtonSmall selected={time === 0} onClick={handleSetTime}>
+                  No limit
+                </ButtonSmall>
+                <ButtonSmall selected={time === 30} onClick={handleSetTime}>
+                  30 min
+                </ButtonSmall>
+                <ButtonSmall selected={time === 60} onClick={handleSetTime}>
+                  60 min
+                </ButtonSmall>
+                <ButtonSmall selected={time === 90} onClick={handleSetTime}>
+                  90 min
+                </ButtonSmall>
+                <ButtonSmall selected={time === 120} onClick={handleSetTime}>
+                  120 min
+                </ButtonSmall>
               </ButtonBox>
             </Box>
             <Box className="col-[2/-1] row-[3/4]">
@@ -137,10 +150,9 @@ function AddNewQuest() {
                 </label>
                 <InputOrTextarea
                   id="victoryMessage"
-                  required
                   placeholder="Add a message..."
                   inputOrTextarea="textarea"
-                  {...register('victoryMessage')}
+                  register={{ ...register('victoryMessage') }}
                 />
               </InputBox>
               <InputBox>
@@ -149,10 +161,9 @@ function AddNewQuest() {
                 </label>
                 <InputOrTextarea
                   id="defeatMessage"
-                  required
                   placeholder="Add a message..."
                   inputOrTextarea="textarea"
-                  {...register('defeatMessage')}
+                  register={{ ...register('defeatMessage') }}
                 />
               </InputBox>
             </Box>

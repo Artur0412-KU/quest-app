@@ -1,13 +1,17 @@
+import { UseFormRegisterReturn } from 'react-hook-form';
+
 function InputOrTextarea({
   placeholder,
   id,
   type,
   inputOrTextarea,
+  register,
 }: {
   placeholder: string;
   id: string;
   type?: string;
   inputOrTextarea: 'input' | 'textarea';
+  register: UseFormRegisterReturn;
 }) {
   const style =
     inputOrTextarea +
@@ -15,12 +19,19 @@ function InputOrTextarea({
 
   if (inputOrTextarea === 'textarea')
     return (
-      <textarea required placeholder={placeholder} id={id} className={style} />
+      <textarea
+        required
+        {...register}
+        placeholder={placeholder}
+        id={id}
+        className={style}
+      />
     );
 
   if (inputOrTextarea === 'input')
     return (
       <input
+        {...register}
         required
         placeholder={placeholder}
         id={id}
