@@ -12,7 +12,7 @@ function Card({ data }: { data: CardType }) {
   }
 
   return (
-    <div className="relative flex h-[300px] w-full items-center justify-center bg-red-300">
+    <div className="relative flex h-[300px] items-center justify-center bg-red-300">
       <div className="text-[48px] font-semibold">
         {showAnswer ? definition : term}
       </div>

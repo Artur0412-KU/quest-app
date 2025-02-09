@@ -5,6 +5,11 @@ import CreateCardForm from './components/AddNewQuest/Card/CreateTermForm';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import CardLine from './components/AddNewQuest/Card/Term';
 import toast, { Toaster } from 'react-hot-toast';
+import Heading from './components/AddNewQuest/Card/Heading';
+import Box from './components/AddNewQuest/Box';
+import InputBox from './components/AddNewQuest/InputBox';
+import ButtonBox from './components/AddNewQuest/ButtonBox';
+import ButtonSmall from './components/Button/ButtonSmall';
 
 export type CardType = { id: string; term: string; definition: string };
 
@@ -12,7 +17,8 @@ export type Inputs = {
   title: string;
   description: string;
   time: number;
-  cards: { term: string; definition: string }[];
+  victoryMessage: string;
+  defeatMessage: string;
 };
 
 function AddNewCardsQuest() {
@@ -38,48 +44,82 @@ function AddNewCardsQuest() {
   }
 
   return (
-    <div className="flex flex-col gap-6 overflow-hidden bg-green-300 p-12">
-      <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex items-center justify-between">
-          <h2 className="font-boldk text-center text-3xl uppercase">
-            Add new quest
-          </h2>
-          <button className="btn btn-primary btn-active">Create</button>
-        </div>
-        <label className="input input-bordered flex w-1/2 items-center gap-2">
-          Title:
-          <input required type="text" className="grow" {...register('title')} />
-        </label>
-        <label className="textarea textarea-bordered flex w-1/2 items-start gap-2 text-base">
-          Description:
-          <textarea
-            required
-            id="description"
-            className="textarea textarea-bordered grow"
-            {...register('description')}
-          ></textarea>
-        </label>
-        <label className="input input-bordered flex w-1/2 items-center gap-2">
-          Time:
-          <input
-            required
-            min={1}
-            max={120}
-            type="number"
-            className="grow appearance-none"
-            {...register('time')}
-          />
-        </label>
-        {cards?.map(cardData => (
+    <div className="bg-red-600">
+      {/* {cards?.map(cardData => (
           <CardLine
             key={cardData.id}
             card={cardData}
             handleDelete={handleRemoveCard}
           />
-        ))}
+        ))} */}
+      {/* <CreateCardForm addCard={handleAddCard} /> */}
+
+      <nav>
+        <button className="btn btn-wide btn-ghost">Wide</button>
+        <button className="btn btn-wide btn-ghost">Wide</button>
+        <button className="btn btn-wide bg-brand text-white">Wide</button>
+      </nav>
+      <form className="" onSubmit={handleSubmit(onSubmit)}>
+        <Box>
+          <Heading as="h2">Create a new quest</Heading>
+          <InputBox>
+            <label htmlFor="title">Title</label>
+            <input
+              id="title"
+              required
+              type="text"
+              placeholder="Enter a title, like “The Mystery of the Maya Civilization”"
+              className="input border-gray rounded-[4px] border border-solid"
+              {...register('title')}
+            />
+          </InputBox>
+          <InputBox>
+            <label htmlFor="description">Description</label>
+            <textarea
+              id="description"
+              required
+              placeholder="Add a description..."
+              className="textarea input border-gray grow rounded-[4px] border border-solid"
+              {...register('title')}
+            />
+          </InputBox>
+        </Box>
+
+        <Box>
+          <Heading as="h2">Total time limit</Heading>
+          <ButtonBox>
+            <ButtonSmall selected={true}>No limit</ButtonSmall>
+            <ButtonSmall selected={false}>30 min</ButtonSmall>
+            <ButtonSmall selected={false}>60 min</ButtonSmall>
+            <ButtonSmall selected={false}>90 min</ButtonSmall>
+            <ButtonSmall selected={false}>120 min</ButtonSmall>
+          </ButtonBox>
+        </Box>
+        <Box>
+          <Heading as="h2">Final Screen</Heading>
+          <InputBox>
+            <label htmlFor="victoryMessage">Victory</label>
+            <textarea
+              id="victoryMessage"
+              required
+              placeholder="Add a message..."
+              className="textarea input border-gray grow rounded-[4px] border border-solid"
+              {...register('victoryMessage')}
+            />
+          </InputBox>
+          <InputBox>
+            <label htmlFor="defeatMessage">Defeat</label>
+            <textarea
+              id="defeatMessage"
+              required
+              placeholder="Add a message..."
+              className="textarea input border-gray grow rounded-[4px] border border-solid"
+              {...register('defeatMessage')}
+            />
+          </InputBox>
+        </Box>
       </form>
 
-      <CreateCardForm addCard={handleAddCard} />
       <Toaster />
     </div>
   );

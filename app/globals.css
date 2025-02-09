@@ -1,4 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
 @import 'tailwindcss';
 @plugin "daisyui" {
-  themes: all;
+  themes: light --default;
+}
+
+@theme {
+  --color-brand: hsla(14, 77%, 54%, 1);
+
+  --color-black: hsla(215, 28%, 17%, 1);
+  --color-gray: hsla(216, 12%, 84%, 1);
+  --color-white: hsla(0, 0%, 100%, 1);
+}
+
+@layer components {
+  *,
+  *::before,
+  *::after {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.5;
+    color: hsla(215, 28%, 17%, 1);
+  }
 }

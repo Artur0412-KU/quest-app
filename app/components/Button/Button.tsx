@@ -1,14 +1,12 @@
 import React from 'react';
-import {ButtonProps} from "@/types/types";
+import { ButtonProps } from '@/types/types';
 
-const Button = ({className, onClick, text}: ButtonProps) => {
-    return (
-        <button
-            className={className}
-        onClick={onClick}>
-            {text}
-        </button>
-    );
+const Button = ({ className, onClick, text }: ButtonProps) => {
+  return (
+    <button className={className} onClick={onClick}>
+      {text}
+    </button>
+  );
 };
 
 export default Button;

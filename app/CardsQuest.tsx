@@ -22,14 +22,14 @@ function CardsQuest() {
   const { title, author, description, time, cards } = testData;
 
   return (
-    <div className="bg-secondary flex h-fit min-w-full flex-col gap-6 p-20">
+    <div className="bg-secondary flex h-fit flex-col gap-6 p-20">
       <div className="flex justify-between">
         <h3 className="text-[36px] font-semibold">{_.upperFirst(title)}</h3>
         <span className="countdown font-mono text-6xl">
           <span style={{ '--value': time } as React.CSSProperties}>{time}</span>
         </span>
       </div>
-      <div className="carousel w-full">
+      <div className="flex">
         {cards.map(card => (
           <Card key={card.id} data={card} />
         ))}

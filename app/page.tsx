@@ -5,11 +5,11 @@ import CardsQuest from './CardsQuest';
 
 function page() {
   return (
-    <div className="bg-base-300 min-h-screen w-full px-24 py-12">
+    <div className="bg-[hsl(0deg, 0%, 95%)] px-[24px] pt-[24px] pb-[56px]">
       {/* <Profile /> */}
-      {/* <AddNewCardsQuest /> */}
+      <AddNewCardsQuest />
       {/* <Dashboard /> */}
-      <CardsQuest />
+      {/* <CardsQuest /> Потрібно доробити */}
     </div>
   );
 }
