@@ -1,6 +1,6 @@
 'use client';
 
-import { CardType } from '@/app/AddNewCardsQuest';
+import { CardType } from '@/app/AddNewQuest';
 import QuestCardsViewMini from '../AddNewQuest/Card/QuestCardsViewMini';
 import _ from 'lodash';
 

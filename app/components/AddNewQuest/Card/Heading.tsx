@@ -6,7 +6,7 @@ function Heading({ as, children }: { as: string; children: ReactNode }) {
   if (as === 'h2')
     return <h2 className={heading + 'text-[24px]'}>{children}</h2>;
   if (as === 'h4')
-    return <h4 className={heading + ' text-[16px]'}>{children}</h4>;
+    return <h4 className={heading + ' text-[16px] text-[600]'}>{children}</h4>;
 }
 
 export default Heading;

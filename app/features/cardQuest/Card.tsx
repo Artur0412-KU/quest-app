@@ -1,6 +1,6 @@
 'use client';
 
-import { CardType } from '@/app/AddNewCardsQuest';
+import { CardType } from '@/app/AddNewQuest';
 import { useState } from 'react';
 
 function Card({ data }: { data: CardType }) {

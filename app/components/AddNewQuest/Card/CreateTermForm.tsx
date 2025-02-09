@@ -1,6 +1,6 @@
 'use client';
 
-import { CardType } from '@/app/AddNewCardsQuest';
+import { CardType } from '@/app/AddNewQuest';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 function CreateCardForm({ addCard }: { addCard: (card: CardType) => void }) {
@@ -14,11 +14,11 @@ function CreateCardForm({ addCard }: { addCard: (card: CardType) => void }) {
 
   return (
     <form
-      className="mb-4 flex flex-col gap-8 rounded-xl bg-secondary-content p-8"
+      className="bg-secondary-content mb-4 flex flex-col gap-8 rounded-xl p-8"
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex w-full flex-col lg:flex-row">
-        <div className="card grid flex-grow place-items-center rounded-box">
+        <div className="card rounded-box grid flex-grow place-items-center">
           <label className="input input-bordered flex w-full items-center gap-2">
             Term:
             <input
@@ -31,7 +31,7 @@ function CreateCardForm({ addCard }: { addCard: (card: CardType) => void }) {
           </label>
         </div>
         <div className="divider lg:divider-horizontal"></div>
-        <div className="card grid flex-grow place-items-center rounded-box">
+        <div className="card rounded-box grid flex-grow place-items-center">
           <label className="input input-bordered flex w-full items-center gap-2">
             Definition:
             <input

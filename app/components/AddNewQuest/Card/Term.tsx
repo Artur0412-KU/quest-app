@@ -1,4 +1,4 @@
-import { CardType } from '@/app/AddNewCardsQuest';
+import { CardType } from '@/app/AddNewQuest';
 
 function CardLine({
   card,
@@ -11,13 +11,13 @@ function CardLine({
   const { id, term, definition } = card;
 
   return (
-    <div className="flex flex-col gap-8 rounded-xl bg-primary p-8">
+    <div className="bg-primary flex flex-col gap-8 rounded-xl p-8">
       <div className="flex w-full">
-        <div className="card grid h-20 flex-grow place-items-center rounded-box bg-base-300 pb-2">
+        <div className="card rounded-box bg-base-300 grid h-20 flex-grow place-items-center pb-2">
           <span className="font-bold">Term</span> {term}
         </div>
         <div className="divider divider-horizontal"></div>
-        <div className="card grid h-20 flex-grow place-items-center rounded-box bg-base-300 pb-2">
+        <div className="card rounded-box bg-base-300 grid h-20 flex-grow place-items-center pb-2">
           <span className="font-bold">Definition</span> {definition}
         </div>
       </div>

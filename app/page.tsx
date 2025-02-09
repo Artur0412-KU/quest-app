@@ -1,15 +1,15 @@
 import Profile from './Profile';
-import AddNewCardsQuest from './AddNewCardsQuest';
+import AddNewCards from './AddNewQuest';
 import Dashboard from './Dashboard';
 import CardsQuest from './CardsQuest';
 
 function page() {
   return (
-    <div className="bg-[hsl(0deg, 0%, 95%)] px-[24px] pt-[24px] pb-[56px]">
+    <div className="bg-stone-200 px-[24px] pt-[24px] pb-[56px]">
       {/* <Profile /> */}
-      <AddNewCardsQuest />
+      <AddNewCards />
       {/* <Dashboard /> */}
-      {/* <CardsQuest /> Потрібно доробити */}
+      {/* <Cards /> Потрібно доробити */}
     </div>
   );
 }

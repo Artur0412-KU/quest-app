@@ -7,8 +7,7 @@ function ButtonSmall({
   children: ReactNode;
   selected?: boolean;
 }) {
-  const button = ' btn btn-lg border-brand border-[2px] ';
-
+  const button = ' btn border-brand border-[2px]  ';
   const selectedOrNot = selected
     ? ' bg-brand text-white'
     : ' hover:text-brand ';
