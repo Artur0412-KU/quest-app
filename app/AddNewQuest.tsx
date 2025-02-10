@@ -1,89 +1,178 @@
 'use client';
 
-import {
-  ChangeEvent,
-  SyntheticEvent,
-  useCallback,
-  useEffect,
-  useId,
-  useRef,
-  useState,
-} from 'react';
-import CreateCardForm from './components/AddNewQuest/CreateCardForm';
+import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import Card from './components/AddNewQuest/Card';
+import toast, { Toaster } from 'react-hot-toast';
+import Heading from './components/AddNewQuest/Heading';
+import Box from './components/AddNewQuest/Box';
+import InputBox from './components/AddNewQuest/InputBox';
+import ButtonBox from './components/AddNewQuest/ButtonBox';
+import ButtonSmall from './components/Button/ButtonSmall';
+
+import { HiOutlinePuzzlePiece, HiOutlineCog8Tooth } from 'react-icons/hi2';
+import InputOrTextarea from './components/AddNewQuest/InputOrTextarea';
+import ButtonGhost from './components/Button/ButtonGhost';
+import { QuestType } from './store/questsSlice';
+
+// import CreateCardForm from './components/AddNewQuest/Card/CreateTermForm';
+// import CardLine from './components/AddNewQuest/Card/Term';
 
 export type CardType = { id: string; term: string; definition: string };
 
-export type Inputs = {
-  title: string;
-  description: string;
-  time: number;
-  cards: { term: string; definition: string }[];
-};
-
 function AddNewQuest() {
-  const { register, handleSubmit } = useForm<Inputs>();
+  const { reset, register, handleSubmit } = useForm<QuestType>();
   const [cards, manageCards] = useState<CardType[]>([]);
+  const [time, setTime] = useState<number>(0);
+  const [page, setPage] = useState<'mainSettings' | 'questions'>(
+    'mainSettings',
+  );
 
-  const onSubmit: SubmitHandler<Inputs> = data =>
-    console.log({ id: Math.random() + useId(), ...data, cards });
+  const onSubmit: SubmitHandler<QuestType> = data => {
+    // if (cards.length === 0)
+    //   return toast.error('You shoud have at least one term');
+    const newQuest = { ...data, cards, id: Math.random().toString(), time };
+    reset();
+    manageCards([]);
 
-  function handleAddCard(card: CardType) {
-    manageCards(prevCards => [...prevCards, card]);
+    console.log(newQuest);
+    toast.success('The quest is created');
+  };
+
+  function handleSetTime(e: React.MouseEvent<HTMLButtonElement>) {
+    const timeValue = +e.currentTarget.textContent!.split(' ').at(0)!;
+    const numberTimeValue = timeValue ? +timeValue : 0;
+    setTime(numberTimeValue);
   }
 
-  function handleRemoveCard(id: string) {
-    manageCards(prevCards => [...prevCards.filter(card => card.id !== id)]);
+  // function handleAddCard(card: CardType) {
+  //   manageCards(prevCards => [...prevCards, card]);
+  // }
+
+  // function handleRemoveCard(id: string) {
+  //   manageCards(prevCards => [...prevCards.filter(card => card.id !== id)]);
+  // }
+
+  {
+    /* {cards?.map(cardData => (
+    <CardLine
+      key={cardData.id}
+      card={cardData}
+      handleDelete={handleRemoveCard}
+    />
+  ))} */
   }
-
-  useEffect(() => {
-    console.log(cards);
-  }, [cards]);
-
+  {
+    /* <CreateCardForm addCard={handleAddCard} /> */
+  }
   return (
-    <div className="overflow-hidden bg-green-300 p-12">
-      <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex items-center justify-between">
-          <h2 className="font-boldk text-center text-3xl uppercase">
-            Add new quest
-          </h2>
-          <button className="btn btn-primary btn-active">Create</button>
-        </div>
-        <label className="input input-bordered flex items-center gap-2">
-          Title:
-          <input required type="text" className="grow" {...register('title')} />
-        </label>
-        <label className="textarea textarea-bordered flex items-start gap-2 text-base">
-          Description:
-          <textarea
-            required
-            id="description"
-            className="textarea textarea-bordered grow"
-            {...register('description')}
-          ></textarea>
-        </label>
-        <label className="input input-bordered flex max-w-xs items-center gap-2">
-          Time:
-          <input
-            required
-            min={1}
-            max={120}
-            type="number"
-            className="grow appearance-none"
-            {...register('time')}
-          />
-        </label>
-        {cards?.map((cardData, i) => (
-          <Card
-            key={cardData.id}
-            card={cardData}
-            handleDelete={handleRemoveCard}
-          />
-        ))}
-        <CreateCardForm addCard={handleAddCard} />
-      </form>
-    </div>
+    <form className="" onSubmit={handleSubmit(onSubmit)}>
+      <div className="grid-rows-[repeat(4, fit-content)] grid grid-cols-4 gap-[24px] bg-stone-200">
+        <Box className="col-[1/2] row-[1/2]">
+          <nav>
+            <ButtonGhost
+              onClick={() => setPage('mainSettings')}
+              selected={page === 'mainSettings'}
+            >
+              <HiOutlineCog8Tooth size={24} />
+              General Settings
+            </ButtonGhost>
+            <ButtonGhost
+              onClick={() => setPage('questions')}
+              selected={page === 'questions'}
+            >
+              <HiOutlinePuzzlePiece size={24} />
+              Tasks
+            </ButtonGhost>
+
+            <button
+              className="btn bg-brand mt-[64px] w-full px-[14px] py-[16px] text-white"
+              type="submit"
+            >
+              Create a quest
+            </button>
+          </nav>
+        </Box>
+
+        {page === 'mainSettings' && (
+          <>
+            <Box className="col-[2/-1] row-[1/2]">
+              <Heading as="h2">Create a new quest</Heading>
+              <InputBox>
+                <label htmlFor="title">
+                  <Heading as="h4">Title</Heading>
+                </label>
+                <InputOrTextarea
+                  id="title"
+                  type="text"
+                  inputOrTextarea="input"
+                  placeholder="Enter a title, like “The Mystery of the Maya Civilization”"
+                  register={{ ...register('title') }}
+                />
+              </InputBox>
+              <InputBox>
+                <label htmlFor="description">
+                  <Heading as="h4">Description</Heading>
+                </label>
+                <InputOrTextarea
+                  id="description"
+                  inputOrTextarea="textarea"
+                  placeholder="Add a description..."
+                  register={{ ...register('description') }}
+                />
+              </InputBox>
+            </Box>
+
+            <Box className="col-[2/-1] row-[2/3]">
+              <Heading as="h2">Total time limit</Heading>
+              <ButtonBox>
+                <ButtonSmall selected={time === 0} onClick={handleSetTime}>
+                  No limit
+                </ButtonSmall>
+                <ButtonSmall selected={time === 30} onClick={handleSetTime}>
+                  30 min
+                </ButtonSmall>
+                <ButtonSmall selected={time === 60} onClick={handleSetTime}>
+                  60 min
+                </ButtonSmall>
+                <ButtonSmall selected={time === 90} onClick={handleSetTime}>
+                  90 min
+                </ButtonSmall>
+                <ButtonSmall selected={time === 120} onClick={handleSetTime}>
+                  120 min
+                </ButtonSmall>
+              </ButtonBox>
+            </Box>
+            <Box className="col-[2/-1] row-[3/4]">
+              <Heading as="h2">Final Screen</Heading>
+              <InputBox>
+                <label htmlFor="victoryMessage">
+                  <Heading as="h4">Victory</Heading>
+                </label>
+                <InputOrTextarea
+                  id="victoryMessage"
+                  placeholder="Add a message..."
+                  inputOrTextarea="textarea"
+                  register={{ ...register('victoryMessage') }}
+                />
+              </InputBox>
+              <InputBox>
+                <label htmlFor="defeatMessage">
+                  <Heading as="h4">Defeat</Heading>
+                </label>
+                <InputOrTextarea
+                  id="defeatMessage"
+                  placeholder="Add a message..."
+                  inputOrTextarea="textarea"
+                  register={{ ...register('defeatMessage') }}
+                />
+              </InputBox>
+            </Box>
+          </>
+        )}
+
+        <Toaster />
+      </div>
+    </form>
   );
 }
 
