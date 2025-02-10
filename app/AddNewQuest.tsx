@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
-import Heading from './components/AddNewQuest/Card/Heading';
+import Heading from './components/AddNewQuest/Heading';
 import Box from './components/AddNewQuest/Box';
 import InputBox from './components/AddNewQuest/InputBox';
 import ButtonBox from './components/AddNewQuest/ButtonBox';

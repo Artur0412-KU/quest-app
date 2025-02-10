@@ -3,8 +3,8 @@
 import { CardType } from '@/app/AddNewQuest';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-function CreateCardForm({ addCard }: { addCard: (card: CardType) => void }) {
-  const { reset, register, handleSubmit, ...x } = useForm<CardType>();
+function CreateTask({ addCard }: { addCard: (card: CardType) => void }) {
+  const { reset, register, handleSubmit } = useForm<CardType>();
 
   const onSubmit: SubmitHandler<CardType> = data => {
     const newCard = { ...data, id: Math.random().toString() };
@@ -49,4 +49,4 @@ function CreateCardForm({ addCard }: { addCard: (card: CardType) => void }) {
   );
 }
 
-export default CreateCardForm;
+export default CreateTask;

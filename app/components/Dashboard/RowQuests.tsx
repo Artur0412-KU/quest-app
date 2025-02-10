@@ -1,8 +1,9 @@
 'use client';
 
 import { CardType } from '@/app/AddNewQuest';
-import QuestCardsViewMini from '../AddNewQuest/Card/QuestCardsViewMini';
+
 import _ from 'lodash';
+import QuestViewMini from '../AddNewQuest/QuestCardsViewMini';
 
 export type DataType = {
   id: string;
@@ -25,7 +26,7 @@ function RowQuests({ rowTitle, data }: RowQuestProps) {
       <h4 className="text-3xl font-bold">{_.upperFirst(rowTitle)}</h4>
       <div className="carousel flex gap-4">
         {data.map(questData => (
-          <QuestCardsViewMini
+          <QuestViewMini
             key={questData.id}
             data={questData}
             onClick={handleSeceltQuest}

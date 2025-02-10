@@ -1,9 +1,9 @@
 'use client';
 
-import { DataType } from '../../Dashboard/RowQuests';
 import _ from 'lodash';
+import { DataType } from '../Dashboard/RowQuests';
 
-function QuestCardsViewMini({
+function QuestViewMini({
   data,
   onClick,
 }: {
@@ -26,7 +26,10 @@ function QuestCardsViewMini({
       <div className="flex items-center gap-2">
         <div className="avatar">
           <div className="w-8 rounded-full">
-            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+            <img
+              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+              alt="Profile image"
+            />
           </div>
         </div>
         <p>{author}</p>
@@ -35,4 +38,4 @@ function QuestCardsViewMini({
   );
 }
 
-export default QuestCardsViewMini;
+export default QuestViewMini;
