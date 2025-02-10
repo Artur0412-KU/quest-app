@@ -1,4 +1,4 @@
-import { CardType } from "@/app/AddNewQuest";
+import { CardType } from '@/app/AddNewQuest';
 
 function Card({
   card,

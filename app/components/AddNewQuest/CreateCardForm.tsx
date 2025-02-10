@@ -1,23 +1,23 @@
-"use client";
+'use client';
 
-import { CardType } from "@/app/AddNewQuest";
-import { ChangeEvent, useEffect, useState } from "react";
+import { CardType } from '@/app/AddNewQuest';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 function CreateCardForm({ addCard }: { addCard: (card: CardType) => void }) {
   const [inputProps, setInputProps] = useState<CardType>({
     id: Math.random().toString(),
-    term: "",
-    definition: "",
+    term: '',
+    definition: '',
   });
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    setInputProps((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setInputProps(prev => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
   function handleAddCard() {
-    if (inputProps.term === "" && inputProps.definition === "") return;
+    if (inputProps.term === '' && inputProps.definition === '') return;
     addCard(inputProps);
-    setInputProps({ id: Math.random().toString(), term: "", definition: "" });
+    setInputProps({ id: Math.random().toString(), term: '', definition: '' });
   }
 
   return (
