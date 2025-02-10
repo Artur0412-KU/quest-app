@@ -1,171 +1,167 @@
 'use client';
 
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
 import Heading from './components/AddNewQuest/Heading';
 import Box from './components/AddNewQuest/Box';
-import InputBox from './components/AddNewQuest/InputBox';
-import ButtonBox from './components/AddNewQuest/ButtonBox';
-import ButtonSmall from './components/Button/ButtonSmall';
 
-import { HiOutlinePuzzlePiece, HiOutlineCog8Tooth } from 'react-icons/hi2';
-import InputOrTextarea from './components/AddNewQuest/InputOrTextarea';
-import ButtonGhost from './components/Button/ButtonGhost';
-import { QuestType } from './store/questsSlice';
+import { QuestType, TaskType } from './store/questsSlice';
+import InputBox from './components/AddNewQuest/InputBox';
+import Navigation from './components/AddNewQuest/Navigation';
+import InputFileBox from './components/AddNewQuest/InputFileBox';
+
+// import ButtonBox from './components/AddNewQuest/ButtonBox';
+// import ButtonSmall from './components/Button/ButtonSmall';
 
 // import CreateCardForm from './components/AddNewQuest/Card/CreateTermForm';
 // import CardLine from './components/AddNewQuest/Card/Term';
 
-export type CardType = { id: string; term: string; definition: string };
+type Pages = 'mainSettings' | 'questions';
 
 function AddNewQuest() {
-  const { reset, register, handleSubmit } = useForm<QuestType>();
-  const [cards, manageCards] = useState<CardType[]>([]);
-  const [time, setTime] = useState<number>(0);
-  const [page, setPage] = useState<'mainSettings' | 'questions'>(
-    'mainSettings',
-  );
+  const [page, setPage] = useState<Pages>('mainSettings');
+  const [tasks, manageTasks] = useState<TaskType[]>([]);
+  const [previewImage, setPreviewImage] = useState<string>('');
+  const [backgroundImage, setBackgroundImage] = useState<string>('');
 
-  const onSubmit: SubmitHandler<QuestType> = data => {
-    // if (cards.length === 0)
-    //   return toast.error('You shoud have at least one term');
-    const newQuest = { ...data, cards, id: Math.random().toString(), time };
-    reset();
-    manageCards([]);
+  const {
+    reset: resetGeneralSettings,
+    register: registerGeneralSettings,
+    handleSubmit: handleSubmitQuest,
+  } = useForm<QuestType>();
+
+  const {
+    reset: resetTask,
+    register: registerTask,
+    handleSubmit: handleSubmitTask,
+  } = useForm<TaskType>();
+
+  function handleSetPage(type: Pages) {
+    setPage(type);
+  }
+
+  function handleSetImage(
+    e: ChangeEvent<HTMLInputElement>,
+    type: 'preview' | 'background',
+  ) {
+    const file = e.target.files?.[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = e =>
+        type === 'preview'
+          ? setPreviewImage(e.target?.result as string)
+          : setBackgroundImage(e.target?.result as string); // Конвертуємо в Base64
+      reader.readAsDataURL(file);
+    }
+  }
+
+  const onSubmitTask: SubmitHandler<TaskType> = data => {
+    if (tasks.length === 0)
+      return toast.error('You shoud have at least one term');
+    const newQuest = { ...data, id: Math.random().toString() };
+    resetTask();
+    manageTasks([]);
+
+    console.log(newQuest);
+    toast.success('The task is created');
+  };
+
+  const onSubmitQuest: SubmitHandler<QuestType> = data => {
+    if (tasks.length === 0)
+      return toast.error('You shoud have at least one term');
+    const newQuest = {
+      ...data,
+      tasks,
+      id: Math.random().toString(),
+      previewImage,
+      backgroundImage,
+    };
+    resetGeneralSettings();
+    manageTasks([]);
 
     console.log(newQuest);
     toast.success('The quest is created');
   };
 
-  function handleSetTime(e: React.MouseEvent<HTMLButtonElement>) {
-    const timeValue = +e.currentTarget.textContent!.split(' ').at(0)!;
-    const numberTimeValue = timeValue ? +timeValue : 0;
-    setTime(numberTimeValue);
-  }
-
-  // function handleAddCard(card: CardType) {
-  //   manageCards(prevCards => [...prevCards, card]);
-  // }
-
-  // function handleRemoveCard(id: string) {
-  //   manageCards(prevCards => [...prevCards.filter(card => card.id !== id)]);
-  // }
-
-  {
-    /* {cards?.map(cardData => (
-    <CardLine
-      key={cardData.id}
-      card={cardData}
-      handleDelete={handleRemoveCard}
-    />
-  ))} */
-  }
-  {
-    /* <CreateCardForm addCard={handleAddCard} /> */
-  }
   return (
-    <form className="" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className=""
+      onSubmit={
+        page === 'mainSettings'
+          ? handleSubmitQuest(onSubmitQuest)
+          : handleSubmitTask(onSubmitTask)
+      }
+    >
       <div className="grid-rows-[repeat(4, fit-content)] grid grid-cols-4 gap-[24px] bg-stone-200">
         <Box className="col-[1/2] row-[1/2]">
-          <nav>
-            <ButtonGhost
-              onClick={() => setPage('mainSettings')}
-              selected={page === 'mainSettings'}
-            >
-              <HiOutlineCog8Tooth size={24} />
-              General Settings
-            </ButtonGhost>
-            <ButtonGhost
-              onClick={() => setPage('questions')}
-              selected={page === 'questions'}
-            >
-              <HiOutlinePuzzlePiece size={24} />
-              Tasks
-            </ButtonGhost>
-
-            <button
-              className="btn bg-brand mt-[64px] w-full px-[14px] py-[16px] text-white"
-              type="submit"
-            >
-              Create a quest
-            </button>
-          </nav>
+          <Navigation page={page} handleSetPage={handleSetPage} />
         </Box>
+
+        {page === 'questions' && (
+          <Box className="col-[2/-1] row-[1/2]">
+            <InputBox
+              inputOrTextarea="input"
+              register={{ ...registerTask('taskTitle') }}
+            >
+              Task
+            </InputBox>
+
+            <Heading as="h4">Victory</Heading>
+            <Heading as="h4">Victory</Heading>
+            <Heading as="h4">Victory</Heading>
+          </Box>
+        )}
 
         {page === 'mainSettings' && (
           <>
             <Box className="col-[2/-1] row-[1/2]">
-              <Heading as="h2">Create a new quest</Heading>
-              <InputBox>
-                <label htmlFor="title">
-                  <Heading as="h4">Title</Heading>
-                </label>
-                <InputOrTextarea
-                  id="title"
-                  type="text"
-                  inputOrTextarea="input"
-                  placeholder="Enter a title, like “The Mystery of the Maya Civilization”"
-                  register={{ ...register('title') }}
-                />
+              <InputBox
+                heading="title"
+                inputOrTextarea="input"
+                register={{ ...registerGeneralSettings('title') }}
+              >
+                Enter a title, like “The Mystery of the Maya Civilization
               </InputBox>
-              <InputBox>
-                <label htmlFor="description">
-                  <Heading as="h4">Description</Heading>
-                </label>
-                <InputOrTextarea
-                  id="description"
-                  inputOrTextarea="textarea"
-                  placeholder="Add a description..."
-                  register={{ ...register('description') }}
-                />
+
+              <Heading as="h2">Create a new quest</Heading>
+              <InputBox
+                heading="description"
+                inputOrTextarea="textarea"
+                register={{ ...registerGeneralSettings('description') }}
+              >
+                Add a description...
+              </InputBox>
+            </Box>
+
+            <Box className="col-[2/-1] row-[3/4]">
+              <Heading as="h2">Final Screen</Heading>
+              <InputBox
+                heading="victoryMessage"
+                inputOrTextarea="textarea"
+                register={{ ...registerGeneralSettings('victoryMessage') }}
+              >
+                Add a message..
+              </InputBox>
+
+              <InputBox
+                heading="defeatMessage"
+                inputOrTextarea="textarea"
+                register={{ ...registerGeneralSettings('defeatMessage') }}
+              >
+                Add a message..
               </InputBox>
             </Box>
 
             <Box className="col-[2/-1] row-[2/3]">
-              <Heading as="h2">Total time limit</Heading>
-              <ButtonBox>
-                <ButtonSmall selected={time === 0} onClick={handleSetTime}>
-                  No limit
-                </ButtonSmall>
-                <ButtonSmall selected={time === 30} onClick={handleSetTime}>
-                  30 min
-                </ButtonSmall>
-                <ButtonSmall selected={time === 60} onClick={handleSetTime}>
-                  60 min
-                </ButtonSmall>
-                <ButtonSmall selected={time === 90} onClick={handleSetTime}>
-                  90 min
-                </ButtonSmall>
-                <ButtonSmall selected={time === 120} onClick={handleSetTime}>
-                  120 min
-                </ButtonSmall>
-              </ButtonBox>
+              <Heading as="h2">Preview image</Heading>
+              <InputFileBox handleSetImage={handleSetImage} type="preview" />
             </Box>
-            <Box className="col-[2/-1] row-[3/4]">
-              <Heading as="h2">Final Screen</Heading>
-              <InputBox>
-                <label htmlFor="victoryMessage">
-                  <Heading as="h4">Victory</Heading>
-                </label>
-                <InputOrTextarea
-                  id="victoryMessage"
-                  placeholder="Add a message..."
-                  inputOrTextarea="textarea"
-                  register={{ ...register('victoryMessage') }}
-                />
-              </InputBox>
-              <InputBox>
-                <label htmlFor="defeatMessage">
-                  <Heading as="h4">Defeat</Heading>
-                </label>
-                <InputOrTextarea
-                  id="defeatMessage"
-                  placeholder="Add a message..."
-                  inputOrTextarea="textarea"
-                  register={{ ...register('defeatMessage') }}
-                />
-              </InputBox>
+
+            <Box className="col-[2/-1] row-[4/5]">
+              <Heading as="h2">Background image</Heading>
+              <InputFileBox handleSetImage={handleSetImage} type="background" />
             </Box>
           </>
         )}

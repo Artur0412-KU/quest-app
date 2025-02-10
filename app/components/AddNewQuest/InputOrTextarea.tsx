@@ -8,7 +8,7 @@ function InputOrTextarea({
   register,
 }: {
   placeholder: string;
-  id: string;
+  id?: string;
   type?: string;
   inputOrTextarea: 'input' | 'textarea';
   register: UseFormRegisterReturn;

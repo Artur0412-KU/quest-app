@@ -10,7 +10,7 @@ import BurgerMenu from '@/app/components/BurgerMenu/BurgerMenu';
 
 const Header = () => {
   return (
-    <div className="navbar flex flex-row justify-between bg-white px-[80px] py-[20px] max-lg:px-[32px]">
+    <div className="navbar bg-base-100 flex flex-row justify-between px-[80px] py-[20px] max-lg:px-[32px]">
       <div className="flex items-center justify-between gap-[48px]">
         <Image src={Logo} alt={'logo'} />
         <div className="flex gap-[16px] max-lg:hidden">

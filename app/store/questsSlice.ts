@@ -3,15 +3,26 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
 
+export type TaskType = {
+  id: string;
+  taskTitle: string;
+  type: 'quiz' | 'typeAnswer' | 'findObject';
+  time: number;
+  answerOption: 'singleSelect' | 'multiSelect';
+  image?: string;
+  answers: [string, string, string?, string?] | string;
+};
+
 export type QuestType = {
   id: string;
   author: string;
   title: string;
   description: string;
-  time: number;
   victoryMessage: string;
   defeatMessage: string;
-  // questions:
+  previewImg?: string;
+  backgroundImg?: string;
+  tasks: TaskType[];
 };
 
 type QuestsState = {
