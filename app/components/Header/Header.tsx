@@ -8,16 +8,18 @@ import Link from "next/link";
 import Button from "@/app/components/Button/Button";
 import BurgerMenuIcon from '@/public/icons/burger-menu.svg'
 import BurgerMenu from "@/app/components/BurgerMenu/BurgerMenu";
+import {usePathname} from "next/navigation";
 
 const Header = () => {
+    const pathname = usePathname()
     return (
         <div className='navbar bg-base-100 py-[20px] px-[80px] flex flex-row justify-between bg-white max-lg:px-[32px]'>
             <div className='flex items-center justify-between gap-[48px]'>
                 <Image src={Logo} alt={'logo'} />
                 <div className='flex gap-[16px] max-lg:hidden'>
-                        <Link href={'/'} className='font-medium'>Main page</Link>
-                        <Link href={'/quests'} className='font-medium'>All quests</Link>
-                        <Link href={'/questions'} className='font-medium'>FAQ</Link>
+                        <Link href={'/'} className={`font-medium [&.active]:text-[#33818A] [&.active]:font-extrabold hover:text-[#33818A] hover:font-extrabold ${pathname === '/' ? 'active' : ''}`}>Main page</Link>
+                        <Link href={'/quests'} className={`font-medium [&.active]:text-[#33818A] [&.active]:font-extrabold hover:text-[#33818A] hover:font-extrabold ${pathname === '/quests' ? 'active' : ''}`}>All quests</Link>
+                        <Link href={'/questions'} className={`font-medium [&.active]:text-[#33818A] [&.active]:font-extrabold hover:text-[#33818A] hover:font-extrabold ${pathname === '/questions' ? 'active' : ''}`}>FAQ</Link>
                 </div>
             </div>
 

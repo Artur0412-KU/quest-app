@@ -1,10 +1,18 @@
 import React from 'react';
 import Map from "@/app/components/Map/Map";
+import Card from "@/app/components/Card/Card";
 
 const Page = () => {
     return (
-        <div className='h-screen'>
-            <Map/>
+        <div className='h-screen bg-gray-200 p-[80px]'>
+            <h1 className='text-[36px] font-semibold text-center'>All quests</h1>
+            <div className='grid grid-cols-2 gap-[32px] mt-[54px] max-lg:flex flex-col'>
+                <Card/>
+                <Card/>
+                <Card/>
+                <Card/>
+            </div>
+
         </div>
     );
 };
