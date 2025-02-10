@@ -6,17 +6,12 @@ import toast, { Toaster } from 'react-hot-toast';
 import Heading from './components/AddNewQuest/Heading';
 import Box from './components/AddNewQuest/Box';
 
-import { QuestType, TaskType } from './store/questsSlice';
+import { QuestType } from './store/questsSlice';
 import InputBox from './components/AddNewQuest/InputBox';
 import Navigation from './components/AddNewQuest/Navigation';
 import InputFileBox from './components/AddNewQuest/InputFileBox';
 import Select from './components/AddNewQuest/Select';
-
-// import ButtonBox from './components/AddNewQuest/ButtonBox';
-// import ButtonSmall from './components/Button/ButtonSmall';
-
-// import CreateCardForm from './components/AddNewQuest/Card/CreateTermForm';
-// import CardLine from './components/AddNewQuest/Card/Term';
+import { useAppDispatch, useAppSelector } from './store/hooks';
 
 export type PagesSettings = 'mainSettings' | 'questions';
 
@@ -36,7 +31,9 @@ type TaskTypeDemo = {
 };
 
 function AddNewQuest() {
-  const [page, setPage] = useState<PagesSettings>('mainSettings');
+  const { settingPage } = useAppSelector(store => store.createQuest);
+  const dispatch = useAppDispatch();
+
   const [tasks, manageTasks] = useState<TaskType[]>([]);
   const [previewImage, setPreviewImage] = useState<string>('');
   const [backgroundImage, setBackgroundImage] = useState<string>('');
@@ -53,10 +50,6 @@ function AddNewQuest() {
     register: registerTask,
     handleSubmit: handleSubmitTask,
   } = useForm<TaskTypeDemo>();
-
-  function handleSetPage(type: PagesSettings) {
-    setPage(type);
-  }
 
   function handleSetImageGeneralSettings(
     e: ChangeEvent<HTMLInputElement>,
@@ -126,17 +119,17 @@ function AddNewQuest() {
     <form
       className=""
       onSubmit={
-        page === 'mainSettings'
+        settingPage === 'mainSettings'
           ? handleSubmitQuest(onSubmitQuest)
           : handleSubmitTask(onSubmitTask)
       }
     >
       <div className="grid-rows-[repeat(4, fit-content)] grid grid-cols-4 gap-[24px] bg-stone-200">
         <Box className="col-[1/2] row-[1/2]">
-          <Navigation page={page} handleSetPage={handleSetPage} />
+          <Navigation />
         </Box>
 
-        {page === 'questions' && (
+        {settingPage === 'questions' && (
           <Box className="col-[2/-1] row-[1/2] !gap-[48px]">
             <InputBox
               inputOrTextarea="input"
@@ -213,7 +206,7 @@ function AddNewQuest() {
           </Box>
         )}
 
-        {page === 'mainSettings' && (
+        {settingPage === 'mainSettings' && (
           <>
             <Box className="col-[2/-1] row-[1/2]">
               <InputBox

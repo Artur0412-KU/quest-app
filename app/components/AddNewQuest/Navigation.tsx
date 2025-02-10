@@ -1,26 +1,24 @@
 import { HiOutlineCog8Tooth, HiOutlinePuzzlePiece } from 'react-icons/hi2';
 import ButtonGhost from '../Button/ButtonGhost';
-import { PagesSettings } from '@/app/AddNewQuest';
+import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
+import { setSettingPage } from '@/app/store/createQuestSlice';
 
-function Navigation({
-  page,
-  handleSetPage,
-}: {
-  page: PagesSettings;
-  handleSetPage: (type: PagesSettings) => void;
-}) {
+function Navigation() {
+  const { settingPage } = useAppSelector(store => store.createQuest);
+  const dispatch = useAppDispatch();
+
   return (
     <nav>
       <ButtonGhost
-        onClick={() => handleSetPage('mainSettings')}
-        selected={page === 'mainSettings'}
+        onClick={() => dispatch(setSettingPage('mainSettings'))}
+        selected={settingPage === 'mainSettings'}
       >
         <HiOutlineCog8Tooth size={24} />
         General Settings
       </ButtonGhost>
       <ButtonGhost
-        onClick={() => handleSetPage('questions')}
-        selected={page === 'questions'}
+        onClick={() => dispatch(setSettingPage('questions'))}
+        selected={settingPage === 'questions'}
       >
         <HiOutlinePuzzlePiece size={24} />
         Tasks

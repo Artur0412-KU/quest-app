@@ -2,9 +2,13 @@
 
 import { configureStore } from '@reduxjs/toolkit';
 import questsReducer from './questsSlice';
+import createQuestsReducer from './createQuestSlice';
 
 const store = configureStore({
-  reducer: questsReducer,
+  reducer: {
+    createQuest: createQuestsReducer,
+    quests: questsReducer,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
