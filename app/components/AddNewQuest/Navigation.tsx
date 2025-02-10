@@ -1,7 +1,14 @@
 import { HiOutlineCog8Tooth, HiOutlinePuzzlePiece } from 'react-icons/hi2';
 import ButtonGhost from '../Button/ButtonGhost';
+import { PagesSettings } from '@/app/AddNewQuest';
 
-function Navigation({ page, handleSetPage }) {
+function Navigation({
+  page,
+  handleSetPage,
+}: {
+  page: PagesSettings;
+  handleSetPage: (type: PagesSettings) => void;
+}) {
   return (
     <nav>
       <ButtonGhost

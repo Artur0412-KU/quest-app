@@ -7,10 +7,18 @@ function InputFileBox({
 }: {
   handleSetImage: (
     e: ChangeEvent<HTMLInputElement>,
-    type: 'preview' | 'background',
+    type?: 'preview' | 'background',
   ) => void;
-  type: 'preview' | 'background';
+  type?: 'preview' | 'background';
 }) {
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    if (type) {
+      handleSetImage(e, type);
+    } else {
+      handleSetImage(e);
+    }
+  }
+
   return (
     <div className="flex w-full flex-col gap-[5px]">
       <button
@@ -21,7 +29,7 @@ function InputFileBox({
         <input
           type="file"
           className="file-input absolute top-0 left-0 h-full w-full opacity-0"
-          onChange={e => handleSetImage(e, type)}
+          onChange={handleChange}
           accept=".png"
         />
         <p className="btn border-[#374151]">Select file</p>

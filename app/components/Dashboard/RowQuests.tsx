@@ -1,24 +1,9 @@
 'use client';
 
-import { CardType } from '@/app/AddNewQuest';
-
 import _ from 'lodash';
 import QuestViewMini from '../AddNewQuest/QuestCardsViewMini';
 
-export type DataType = {
-  id: string;
-  title: string;
-  author: string;
-  time: number;
-  cards: CardType[];
-};
-
-type RowQuestProps = {
-  rowTitle: string;
-  data: DataType[];
-};
-
-function RowQuests({ rowTitle, data }: RowQuestProps) {
+function RowQuests({ rowTitle, data }) {
   function handleSeceltQuest() {}
 
   return (
