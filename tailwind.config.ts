@@ -18,5 +18,7 @@ export default {
     themes: ['retro', 'synthwave'],
   },
 
-  plugins: [require('daisyui')],
+  plugins: [
+      require('daisyui'),
+  ],
 } satisfies Config;

@@ -26,10 +26,10 @@ const Quest = () => {
                         operations, evaluate expressions, solve equations, combine like terms, and identify number
                         properties. Created in cooperation with Mathy Cathy!а. Review concepts to prepare for Algebra!
                         Translate expressions, integer operations, order of operations.</p>
-                    <div>
-                        <div></div>
+                    <div className='flex items-center gap-[16px]'>
+                        <div className='h-[32px] w-[32px] bg-red-600 rounded-[50%]'></div>
                         <p>almed-demded</p>
-                        <p>24 tasks</p>
+                        <p>• 24 tasks</p>
                     </div>
                 </div>
 
