@@ -16,4 +16,12 @@ type InputProps = {
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export type { ButtonProps, InputProps };
+type QuestProps = {
+    id: number;
+    title: string;
+    description: string;
+    author: string;
+    color: string;
+}
+
+export type { ButtonProps, InputProps, QuestProps };
