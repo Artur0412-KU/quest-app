@@ -4,8 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@plugin 'daisyui';
-
 body {
     font-family: "Roboto", serif;
     background-color: #fff;

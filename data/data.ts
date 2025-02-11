@@ -72,4 +72,56 @@ const quests = [
     },
 ];
 
-export {tasks, quests};
+const questions = [
+    {
+        type: "multiple-choice", // Вибір одного варіанту
+        question: "Яка столиця Франції?",
+        options: ["Берлін", "Париж", "Мадрид", "Рим"],
+        correct: "Париж",
+    },
+    {
+        type: "true-false", // Завдання True/False
+        question: "Сонце обертається навколо Землі.",
+        correct: false,
+    },
+    {
+        type: "open", // Відкрите питання
+        question: "Яке хімічне позначення золота?",
+        correct: "Au",
+    },
+    {
+        type: "multiple-choice", // Вибір одного варіанту
+        question: "Скільки планет у Сонячній системі?",
+        options: ["7", "8", "9", "10"],
+        correct: "8",
+    },
+    {
+        type: "abc", // Вибір A, B або C
+        question: "Яка тварина найбільша на Землі?",
+        options: {
+            A: "Слон",
+            B: "Блакитний кит",
+            C: "Білий ведмідь",
+        },
+        correct: "B",
+    },
+    {
+        type: "true-false", // Завдання True/False
+        question: "Вода кипить при 100°C за нормального тиску.",
+        correct: true,
+    },
+    {
+        type: "open", // Відкрите питання
+        question: "Назвіть рік, коли відбулася Французька революція.",
+        correct: "1789",
+    },
+    {
+        type: "multiple-choice",
+        question: "Який найбільший океан?",
+        options: ["Атлантичний", "Індійський", "Тихий", "Північний Льодовитий"],
+        correct: "Тихий",
+    },
+];
+
+
+export {tasks, quests, questions};

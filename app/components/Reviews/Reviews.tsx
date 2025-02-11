@@ -36,10 +36,10 @@ const Reviews = () => {
                     return(
                         <div key={index} className='flex flex-col gap-[16px] mt-[40px]'>
                             <div className='bg-white px-[32px] py-[24px] rounded-[12px]'>
-                                <div className="rating rating-lg flex justify-end gap-[8px]">
+                                <div className="rating rating-sm flex justify-end gap-[8px]">
                                     {ratingArr.map((star) => (
                                         <input key={star} type="radio" name="rating-8"
-                                               className="mask mask-star-2 w-[24px] bg-yellow-400" defaultChecked={true}/>
+                                               className="mask mask-star-2 w-[24px] bg-[#ECBA0B]" defaultChecked={false} disabled={true}/>
                                     ))}
                                 </div>
                                 <h1>{item.text}</h1>

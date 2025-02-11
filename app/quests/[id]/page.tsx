@@ -1,21 +1,20 @@
 "use client"
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
+import React, {useRef} from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Arrow from '@/public/icons/Frame.svg';
 import Button from "@/app/components/Button/Button";
 import Reviews from "@/app/components/Reviews/Reviews";
+import QuestTask from "@/app/components/Quest/Quest";
 
-
-const quests = [
-];
 
 const Quest = () => {
-
-
+    const modal = useRef<HTMLDialogElement>(null);
+    const openQuiz = () => {
+        modal.current?.showModal()
+    }
     return (
-        <div className="px-[80px] py-[40px] bg-gray-200">
+        <div className="px-[80px] py-[40px] bg-gray-200 h-screen">
             <Link href={'/quests'} className="flex items-center gap-[8px]">
                 <Image src={Arrow} alt={''} />
                 All quests
@@ -41,15 +40,17 @@ const Quest = () => {
                     <div className='grid grid-cols-2 gap-[16px] w-full'>
                         <Button
                             className={"btn py-[16px] px-[28px] font-semibold bg-[#E4572E] text-white hover:bg-orange-500 border-none"}
-                            text={'Play solo'}/>
+                            text={'Play solo'} onClick={() => {(document.getElementById('quest') as HTMLDialogElement | null)?.showModal()}}/>
                         <Button
                             className={"btn py-[16px] px-[28px] font-semibold bg-white text-[#E4572E] border-[#E4572E] border-[2px] hover:border-orange-500 hover:bg-white hover:text-orange-500 "}
                             text={'Host live'}/>
                     </div>
 
+
                 </div>
 
             </div>
+            <QuestTask openQuiz={openQuiz}/>
             <Reviews/>
         </div>
     );

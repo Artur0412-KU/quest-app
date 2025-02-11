@@ -18,10 +18,10 @@ type InputProps = {
 
 type QuestProps = {
     id: number;
-    title: string;
-    description: string;
-    author: string;
-    color: string;
+    title?: string;
+    description?: string;
+    author?: string;
+    color?: string;
 }
 
 type ReviewProps = {
