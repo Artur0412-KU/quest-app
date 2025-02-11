@@ -1,13 +1,13 @@
 'use client';
 
 import { configureStore } from '@reduxjs/toolkit';
-import questsReducer from './questsSlice';
-import createQuestsReducer from './createQuestSlice';
+import createQuestReducer from './createQuestSlice';
+import createTaskReducer from './createTaskSlice';
 
 const store = configureStore({
   reducer: {
-    createQuest: createQuestsReducer,
-    quests: questsReducer,
+    createQuest: createQuestReducer,
+    createTask: createTaskReducer,
   },
 });
 

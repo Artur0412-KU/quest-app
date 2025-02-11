@@ -1,21 +1,34 @@
 import { ChangeEvent } from 'react';
 import Heading from './Heading';
+import { QuestImageType } from '@/app/store/createQuestSlice';
 
-function InputFileBox({
-  handleSetImage,
-  type,
-}: {
+type InputFileBoxPropsWithoutType = {
+  handleSetImage: (e: ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
+};
+type InputFileBoxPropsWithType = {
   handleSetImage: (
     e: ChangeEvent<HTMLInputElement>,
-    type?: 'preview' | 'background',
+    type: QuestImageType,
   ) => void;
-  type?: 'preview' | 'background';
-}) {
+  type: QuestImageType;
+  required?: boolean;
+};
+
+function isType(
+  arg: InputFileBoxPropsWithType | InputFileBoxPropsWithoutType,
+): arg is InputFileBoxPropsWithType {
+  return 'type' in arg;
+}
+
+function InputFileBox(
+  props: InputFileBoxPropsWithType | InputFileBoxPropsWithoutType,
+) {
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    if (type) {
-      handleSetImage(e, type);
+    if (isType(props)) {
+      props.handleSetImage(e, props.type);
     } else {
-      handleSetImage(e);
+      props.handleSetImage(e);
     }
   }
 
@@ -27,6 +40,7 @@ function InputFileBox({
       >
         <Heading as="h4">Drag and drop image(.png)</Heading>
         <input
+          required={props.required || true}
           type="file"
           className="file-input absolute top-0 left-0 h-full w-full opacity-0"
           onChange={handleChange}

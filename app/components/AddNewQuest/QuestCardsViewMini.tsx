@@ -1,15 +1,8 @@
 'use client';
 
 import _ from 'lodash';
-import { DataType } from '../Dashboard/RowQuests';
 
-function QuestViewMini({
-  data,
-  onClick,
-}: {
-  data: DataType;
-  onClick: () => void;
-}) {
+function QuestViewMini({ data, onClick }: { data: any; onClick: () => void }) {
   const { title, author, cards } = data;
 
   return (
