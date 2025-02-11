@@ -24,4 +24,13 @@ type QuestProps = {
     color: string;
 }
 
-export type { ButtonProps, InputProps, QuestProps };
+type ReviewProps = {
+    rating: number;
+    text: string;
+    setRating: (rating: number) => void;
+    setText: (text: string) => void;
+    handleChangeText: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+    handleReviewSend: () => void;
+}
+
+export type { ButtonProps, InputProps, QuestProps, ReviewProps };
