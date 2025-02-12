@@ -51,7 +51,7 @@ const Login = ({id}: {id: string}) => {
                             <p className='text-center text-[#808080] text-[14px]'>New here? <span
                                 className='text-[#228EDF] cursor-pointer'
                                 onClick={()=> {
-                                    (document.getElementById('my_modal_5') as HTMLDialogElement).close(),
+                                    (document.getElementById('my_modal_5') as HTMLDialogElement).close();
                                     (document.getElementById('my_modal_6') as HTMLDialogElement | null)?.showModal()
                                 }}>Create a 404Quest account</span></p>
                         </div>

@@ -6,7 +6,6 @@ import Logo from "@/public/main/404logo.svg";
 import Image from "next/image";
 import Link from "next/link";
 import Button from "@/app/components/Button/Button";
-import BurgerMenuIcon from '@/public/icons/burger-menu.svg'
 import BurgerMenu from "@/app/components/BurgerMenu/BurgerMenu";
 import {usePathname} from "next/navigation";
 

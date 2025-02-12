@@ -1,11 +1,7 @@
 'use client';
 
 import { CardType } from '@/app/AddNewQuest';
-<<<<<<< HEAD
-import { ChangeEvent, useEffect, useState } from 'react';
-=======
 import { ChangeEvent, useState } from 'react';
->>>>>>> ivan
 
 function CreateCardForm({ addCard }: { addCard: (card: CardType) => void }) {
   const [inputProps, setInputProps] = useState<CardType>({

@@ -1,4 +1,5 @@
 import ListQuests from './components/Profile/ListQuests';
+import Image from "next/image";
 
 const testQuests = [
   {
@@ -79,7 +80,7 @@ function profile() {
       <div className="flex items-center gap-24 pb-20">
         <div className="avatar">
           <div className="w-64 rounded-full">
-            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+            <Image src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" alt={''}/>
           </div>
         </div>
         <h2 className="mb-40 text-3xl font-bold">Full name</h2>

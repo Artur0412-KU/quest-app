@@ -1,5 +1,4 @@
 import React from 'react';
-import Map from "@/app/components/Map/Map";
 import Card from "@/app/components/Card/Card";
 import {quests} from "@/data/data";
 
