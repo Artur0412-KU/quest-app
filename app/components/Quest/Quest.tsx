@@ -3,10 +3,6 @@ import React, {useRef, useState} from 'react';
 import {questions} from "@/data/data";
 import Button from "@/app/components/Button/Button";
 
-type QuestTaskProps = {
-    openQuiz: () => void; // Функція відкриття модального вікна
-};
-
 const QuestTask = () => {
     const [currentQuestion, setCurrentQuest] = useState(0)
     const [score, setScore] = useState(0);
