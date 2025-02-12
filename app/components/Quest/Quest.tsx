@@ -7,7 +7,7 @@ type QuestTaskProps = {
     openQuiz: () => void; // Функція відкриття модального вікна
 };
 
-const QuestTask = ({openQuiz} : QuestTaskProps) => {
+const QuestTask = () => {
     const [currentQuestion, setCurrentQuest] = useState(0)
     const [score, setScore] = useState(0);
     const [userAnswer, setUserAnswer] = useState<string | boolean>("");
