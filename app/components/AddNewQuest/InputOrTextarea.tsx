@@ -6,12 +6,14 @@ function InputOrTextarea({
   type,
   inputOrTextarea,
   register,
+  required = true,
 }: {
   placeholder: string;
   id?: string;
   type?: string;
   inputOrTextarea: 'input' | 'textarea';
   register: UseFormRegisterReturn;
+  required?: boolean;
 }) {
   const style =
     inputOrTextarea +
@@ -20,7 +22,7 @@ function InputOrTextarea({
   if (inputOrTextarea === 'textarea')
     return (
       <textarea
-        required
+        required={required}
         {...register}
         placeholder={placeholder}
         id={id}
@@ -32,7 +34,7 @@ function InputOrTextarea({
     return (
       <input
         {...register}
-        required
+        required={required}
         placeholder={placeholder}
         id={id}
         type={type}

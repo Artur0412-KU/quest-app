@@ -13,7 +13,7 @@ function TaskPreview({
   handleDelete: () => void;
 }) {
   return (
-    <Box className={`${className} flex-row justify-between`}>
+    <Box className={`${className} flex-row items-center justify-between`}>
       <Heading as="h2" className="w-fit">
         {title}
       </Heading>
@@ -24,12 +24,6 @@ function TaskPreview({
           type="button"
         >
           <HiOutlineTrash size={24} />
-        </button>
-        <button
-          className="btn h-[48px] w-[160px] border-inherit bg-[#7BAAAF] text-white"
-          type="button"
-        >
-          Change
         </button>
       </ButtonBox>
     </Box>

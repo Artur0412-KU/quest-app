@@ -92,7 +92,8 @@ const createQuestSlice = createSlice({
       state[`${action.payload}Image`] = '';
     },
     deleteTask(state, action: PayloadAction<string>) {
-      state.tasks.filter(task => task.id !== action.payload);
+      const deletedTask = state.tasks.findIndex(el => el.id === action.payload);
+      state.tasks.splice(deletedTask, 1);
     },
     addTask(state, action: PayloadAction<Task>) {
       state.tasks.push(action.payload);

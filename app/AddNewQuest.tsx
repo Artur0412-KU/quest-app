@@ -31,7 +31,7 @@ import {
 import { nanoid } from '@reduxjs/toolkit';
 import ImagePreview from './components/AddNewQuest/ImagePreview';
 import TaskPreview from './components/AddNewQuest/TaskPreview';
-import { HiOutlineTrash } from 'react-icons/hi2';
+
 import ButtonBox from './components/AddNewQuest/ButtonBox';
 
 type SubmitQuestData = {
@@ -46,6 +46,7 @@ function AddNewQuest() {
   const { settingPage, tasks, previewImage, backgroundImage } = useAppSelector(
     store => store.createQuest,
   );
+
   const {
     image: taskImage,
     type: taskType,
@@ -98,26 +99,27 @@ function AddNewQuest() {
       time,
       type,
     } = data;
+
     const newTask: Task = {
       id: nanoid(),
       title: taskTitle,
       type: type as TaskType,
       image: taskImage,
-      time: Number.isNaN(+time) ? 0 : +time,
+      time: +time.split(' ').at(0)! || 0,
       answers: { answerFirst, answerFourth, answerSecond, answerThird },
       correctAnswers,
     };
 
     console.log(newTask);
     dispatch(addTask(newTask));
+    dispatch(clearTask());
     resetTask();
-    clearTask();
     toast.success('The task is created');
   };
 
   const onSubmitQuest: SubmitHandler<SubmitQuestData> = data => {
-    // if (tasks.length === 0)
-    //   return toast.error('You shoud have at least one term');
+    if (tasks.length === 0)
+      return toast.error('You shoud have at least one term');
     console.log(data);
     const newQuest = {
       id: nanoid(),
@@ -140,7 +142,7 @@ function AddNewQuest() {
       : handleSubmitQuest(onSubmitQuest);
 
   return (
-    <form className="" onSubmit={submitFn}>
+    <form onSubmit={submitFn}>
       <div className="grid-rows-[repeat(auto, fit-content)] grid grid-cols-4 gap-[24px] bg-stone-200">
         <Box className="col-[1/2] row-[1/2]">
           <Navigation />
@@ -148,7 +150,7 @@ function AddNewQuest() {
 
         {settingPage === 'questions' && (
           <>
-            <Box className="!gap-[48px col-[2/-1] row-[1/2]">
+            <Box className="col-[2/-1] row-[1/2] !gap-[48px]">
               <InputBox
                 inputOrTextarea="input"
                 register={{ ...registerTask('taskTitle') }}
@@ -161,6 +163,7 @@ function AddNewQuest() {
                   handleSelect={handleCheckTypeTask}
                   register={{ ...registerTask('type') }}
                   title="Task type"
+                  defaultValue={taskType}
                   options={['quiz', 'Type answer', 'Find object in a pictures']}
                 />
                 <Select
@@ -211,6 +214,7 @@ function AddNewQuest() {
                       inputOrTextarea="input"
                       register={{ ...registerTask('answerThird') }}
                       toggleAnswer={handleToggleAnswer}
+                      required={false}
                     >
                       Type here...
                     </InputBox>
@@ -219,6 +223,7 @@ function AddNewQuest() {
                       inputOrTextarea="input"
                       register={{ ...registerTask('answerFourth') }}
                       toggleAnswer={handleToggleAnswer}
+                      required={false}
                     >
                       Type here...
                     </InputBox>
@@ -226,13 +231,20 @@ function AddNewQuest() {
                 )}
                 <ButtonBox className="col-[2/3] w-full justify-end">
                   <button
-                    className="btn btn-square h-[48px] w-[48px] bg-[#E22D2D] text-white"
+                    className="btn h-[48px] w-[160px] border-inherit bg-[#7BAAAF] text-white"
+                    type="button"
+                    onClick={() => {
+                      dispatch(clearTask());
+                      resetTask();
+                    }}
+                  >
+                    Reset
+                  </button>
+                  <button
+                    className="btn h-[48px] w-[160px] border-inherit bg-[#7BAAAF] text-white"
                     type="submit"
                   >
-                    <HiOutlineTrash size={24} />
-                  </button>
-                  <button className="btn h-[48px] w-[160px] border-inherit bg-[#7BAAAF] text-white">
-                    Save
+                    Add
                   </button>
                 </ButtonBox>
               </Box>

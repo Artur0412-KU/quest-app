@@ -12,6 +12,7 @@ function InputBox({
   heading,
   className = '',
   toggleAnswer,
+  required,
 }: {
   register: UseFormRegisterReturn;
   children: string;
@@ -19,6 +20,7 @@ function InputBox({
   heading?: string;
   className?: string;
   toggleAnswer?: (name: string) => void;
+  required?: boolean;
 }) {
   const { correctAnswers } = useAppSelector(store => store.createTask);
   const [isChecked, setIsChecked] = useState(false);
@@ -54,6 +56,7 @@ function InputBox({
         </label>
       }
       <InputOrTextarea
+        required={required}
         id={heading}
         type="text"
         inputOrTextarea={inputOrTextarea}
