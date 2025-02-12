@@ -5,7 +5,6 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
 import Heading from './components/AddNewQuest/Heading';
 import Box from './components/AddNewQuest/Box';
-
 import InputBox from './components/AddNewQuest/InputBox';
 import Navigation from './components/AddNewQuest/Navigation';
 import InputFileBox from './components/AddNewQuest/InputFileBox';
@@ -31,8 +30,8 @@ import {
 import { nanoid } from '@reduxjs/toolkit';
 import ImagePreview from './components/AddNewQuest/ImagePreview';
 import TaskPreview from './components/AddNewQuest/TaskPreview';
-
 import ButtonBox from './components/AddNewQuest/ButtonBox';
+import { addQuest } from './addQuest/action';
 
 type SubmitQuestData = {
   defeatMessage: string;
@@ -88,7 +87,7 @@ function AddNewQuest() {
 
   const onSubmitTask: SubmitHandler<Record<string, string>> = data => {
     if (Object.values(correctAnswers).filter(el => el === true).length === 0)
-      return toast.error('Your should have at least one correct answer');
+      return toast.error('You should have at least one correct answer');
 
     const {
       answerFirst,
@@ -110,32 +109,48 @@ function AddNewQuest() {
       correctAnswers,
     };
 
-    console.log(newTask);
     dispatch(addTask(newTask));
     dispatch(clearTask());
     resetTask();
     toast.success('The task is created');
   };
 
-  const onSubmitQuest: SubmitHandler<SubmitQuestData> = data => {
+  const onSubmitQuest: SubmitHandler<SubmitQuestData> = async (data) => {
     if (tasks.length === 0)
-      return toast.error('You shoud have at least one term');
-    console.log(data);
+      return toast.error('You should have at least one task');
+  
     const newQuest = {
       id: nanoid(),
       ...data,
-      author: 'хтось',
+      author: 'Someone',
       tasks,
       previewImage,
       backgroundImage,
     };
-    console.log(newQuest);
-
-    resetGeneralSettings();
-    dispatch(clearQuest());
-    toast.success('The quest is created');
+  
+    try {
+      
+      await addQuest(
+        newQuest.title,
+        newQuest.description,
+        previewImage,
+        backgroundImage ?? '',
+        'quest', 
+        tasks.map(task => ({
+          id: Number(task.id), 
+          name: task.title
+        }))
+      );
+      
+      // Очищаємо стан після успішного додавання
+      dispatch(clearQuest());
+      resetGeneralSettings();
+      toast.success('The quest is created and added to the database');
+    } catch (error) {
+      toast.error('Failed to create quest');
+    }
   };
-
+  
   const submitFn =
     settingPage === 'questions'
       ? handleSubmitTask(onSubmitTask)
@@ -269,7 +284,7 @@ function AddNewQuest() {
                 inputOrTextarea="input"
                 register={{ ...registerGeneralSettings('title') }}
               >
-                Enter a title, like “The Mystery of the Maya Civilization
+                Enter a title, like “The Mystery of the Maya Civilization”
               </InputBox>
 
               <InputBox
@@ -320,7 +335,6 @@ function AddNewQuest() {
         <Toaster />
       </div>
     </form>
-  );
+  )
 }
-
-export default AddNewQuest;
+export default AddNewQuest

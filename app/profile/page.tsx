@@ -4,52 +4,11 @@
 // import ListQuests from "./components/Profile/ListQuests";
 // import Image from "next/image";
 
-
-
-const testQuests = [
-  {
-    id: Math.random(),
-    title: "title1",
-    description: "desc1",
-    author: "auth1",
-    time: 10,
-  },
-  {
-    id: Math.random(),
-    title: "title2",
-    description: "desc2",
-    author: "auth2",
-    time: 20,
-  },
-  {
-    id: Math.random(),
-    title: "title3",
-    description: "desc3",
-    author: "auth3",
-    time: 30,
-  },
-  {
-    id: Math.random(),
-    title: "title4",
-    description: "desc4",
-    author: "auth4",
-    time: 40,
-  },
-  {
-    id: Math.random(),
-    title: "title5",
-    description: "desc5",
-    author: "auth5",
-    time: 50,
-  },
-];
-
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
-import { addQuest } from "../app/addQuest/action"; // Імпортуємо серверну функцію
-
-export default async function Profile() {
+import { addQuest } from "../addQuest/action";
+export default async function Rpofile() {
   const supabase = createServerComponentClient({ cookies });
 
   // Отримуємо всі квести
@@ -67,7 +26,8 @@ export default async function Profile() {
         {quests?.length ? (
           quests.map((quest) => (
             <li key={quest.user_id} className="p-2 border-b">
-              <strong>{quest.title}</strong> – {quest.description} (Автор: {quest.author})
+              <strong>{quest.title}</strong> – {quest.description} (Автор:{" "}
+              {quest.author})
             </li>
           ))
         ) : (

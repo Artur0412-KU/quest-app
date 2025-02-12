@@ -6,7 +6,7 @@ import Facebook from "@/public/icons/image.svg";
 import Image from "next/image";
 import Button from "@/app/components/Button/Button";
 import Input from "@/app/components/Input/Input";
-import { login, signinWithGoogle, signup } from "../../login/actions";
+import { login, signinWithGoogle, signup } from "./actions";
 
 const Login = ({ id }: { id: string }) => {
   const [email, setEmail] = useState("");
