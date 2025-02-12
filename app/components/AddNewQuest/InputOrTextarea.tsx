@@ -17,7 +17,7 @@ function InputOrTextarea({
 }) {
   const style =
     inputOrTextarea +
-    ' border-gray inline-block w-full rounded-[4px] border border-solid';
+    ' border-base-300 inline-block w-full rounded-[4px] border border-solid';
 
   if (inputOrTextarea === 'textarea')
     return (

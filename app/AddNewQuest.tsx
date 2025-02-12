@@ -158,7 +158,7 @@ function AddNewQuest() {
                 Task
               </InputBox>
 
-              <Box className="flex-row justify-between !p-[0px]">
+              <Box className="!flex-row justify-between !p-[0px]">
                 <Select
                   handleSelect={handleCheckTypeTask}
                   register={{ ...registerTask('type') }}

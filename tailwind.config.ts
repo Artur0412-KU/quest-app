@@ -9,9 +9,17 @@ export default {
   theme: {
     extend: {
       screens: {
-        'max-lg': {'max': '1024px'},
-        'max-sm': {'max': '550px'}
-      }
+        'max-lg': { max: '1024px' },
+        'max-sm': { max: '550px' },
+      },
+      colors: {
+        brand: 'hsla(14 77% 54%/  1)',
+      },
     },
   },
+  daisyui: {
+    themes: ['light'],
+  },
+
+  plugins: [require('daisyui')],
 } satisfies Config;

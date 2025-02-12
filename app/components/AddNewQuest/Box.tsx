@@ -9,7 +9,7 @@ function Box({
 }) {
   return (
     <div
-      className={`${className} flex h-fit w-full flex-col gap-[20px] rounded-[8px] bg-(--color-white) p-[32px]`}
+      className={`${className} flex h-fit w-full flex-col gap-[20px] rounded-[8px] bg-white p-[32px]`}
     >
       {children}
     </div>

@@ -21,7 +21,7 @@ function Select({
       <Heading as="h4">{title}</Heading>
       <select
         defaultValue={defaultValue || options.at(0)}
-        className="select w-full"
+        className="select w-full border border-[#D1D5DB]"
         {...register}
         onChange={handleSelect}
       >
