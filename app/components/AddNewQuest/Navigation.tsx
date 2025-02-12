@@ -31,7 +31,7 @@ function Navigation() {
       </ButtonGhost>
 
       <button
-        className="btn bg-brand hover:bg-brand mt-[64px] w-full px-[14px] py-[16px] text-white"
+        className="btn bg-brand hover:bg-brand mt-[64px] w-full px-[14px] py-[16px] text-white border-white"
         type="submit"
         disabled={settingPage === 'questions'}
       >

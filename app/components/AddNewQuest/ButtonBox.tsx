@@ -8,7 +8,7 @@ function ButtonBox({
   className?: string;
 }) {
   return (
-    <div className={`flex w-fit gap-[10px] rounded-[8px] ${className}`}>
+    <div className={`flex w-fit gap-[10px] rounded-[8px] ${className} text-black`}>
       {children}
     </div>
   );

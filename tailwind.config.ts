@@ -18,10 +18,8 @@ export default {
     },
   },
   daisyui: {
-    themes: ['retro'],
+    themes: ['light'],
   },
 
-  plugins: [
-      require('daisyui'),
-  ],
+  plugins: [require('daisyui')],
 } satisfies Config;
