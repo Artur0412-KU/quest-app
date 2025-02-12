@@ -4,8 +4,7 @@
 // import ListQuests from "./components/Profile/ListQuests";
 // import Image from "next/image";
 
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
+
 
 const testQuests = [
   {
@@ -44,6 +43,9 @@ const testQuests = [
     time: 50,
   },
 ];
+
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 
 import { addQuest } from "../app/addQuest/action"; // Імпортуємо серверну функцію
 
