@@ -5,8 +5,9 @@
 @tailwind utilities;
 
 body {
-    font-family: "Roboto", serif;
-    background-color: #fff;
-    color: #21272A;
-    font-size: 16px;
+  font-family: 'Roboto', serif;
+  background-color: #fff;
+  color: #21272a;
+  font-size: 16px;
+  line-height: 1.5;
 }
