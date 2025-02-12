@@ -16,4 +16,21 @@ type InputProps = {
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export type { ButtonProps, InputProps };
+type QuestProps = {
+    id: number;
+    title?: string;
+    description?: string;
+    author?: string;
+    color?: string;
+}
+
+type ReviewProps = {
+    rating: number;
+    text: string;
+    setRating: (rating: number) => void;
+    setText: (text: string) => void;
+    handleChangeText: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+    handleReviewSend: () => void;
+}
+
+export type { ButtonProps, InputProps, QuestProps, ReviewProps };

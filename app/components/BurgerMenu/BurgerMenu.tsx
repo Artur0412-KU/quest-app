@@ -7,7 +7,7 @@ import BurgerImage from "@/public/icons/burger-menu.svg";
 
 const BurgerMenu = () => {
   return (
-    <div className="drawer drawer-end hidden max-lg:flex max-lg:justify-end">
+    <div className="drawer drawer-end hidden max-lg:flex max-lg:justify-end relative">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         <label htmlFor="my-drawer-4">
