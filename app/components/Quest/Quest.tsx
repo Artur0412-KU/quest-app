@@ -3,7 +3,13 @@ import React, {useRef, useState} from 'react';
 import {questions} from "@/data/data";
 import Button from "@/app/components/Button/Button";
 
-const QuestTask = () => {
+type QuestTaskProps = {
+    openQuiz: () => void;
+};
+
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const QuestTask = ({openQuiz}: QuestTaskProps) => {
     const [currentQuestion, setCurrentQuest] = useState(0)
     const [score, setScore] = useState(0);
     const [userAnswer, setUserAnswer] = useState<string | boolean>("");
@@ -63,7 +69,7 @@ const QuestTask = () => {
                         </div>
                     )}
 
-                    {questions[currentQuestion].type === 'abc' && (
+                    {questions[currentQuestion].type === 'abc' && questions[currentQuestion].options && (
                         <div className="mt-3">
                             {Object.entries(questions[currentQuestion].options).map(([key, value]) => (
                                 <Button key={key} onClick={() => setUserAnswer(key)}
@@ -75,6 +81,7 @@ const QuestTask = () => {
                             ))}
                         </div>
                     )}
+
 
 
                     <Button onClick={handleAnswer} className="mt-4 px-4 py-2 bg-orange-500 w-full text-white rounded"
