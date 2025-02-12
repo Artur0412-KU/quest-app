@@ -1,3 +1,4 @@
+
 // import React from 'react';
 // import Map from "@/app/components/Map/Map";
 // import Card from "@/app/components/Card/Card";
@@ -23,6 +24,9 @@
 
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
+
+import React from 'react';
+
 import Card from "@/app/components/Card/Card";
 
 // Визначення інтерфейсу для квестів

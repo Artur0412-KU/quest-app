@@ -1,6 +1,6 @@
 "use client"
 import React from 'react';
-import {useParams, useRouter} from "next/navigation";
+import { useRouter} from "next/navigation";
 import {QuestProps} from "@/types/types";
 
 const Card = ({ id, title, description, author, color }: QuestProps) => {

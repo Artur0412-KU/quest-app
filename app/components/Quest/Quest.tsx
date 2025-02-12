@@ -1,13 +1,15 @@
 "use client"
-import React, {use, useRef, useState} from 'react';
-import {questions, quests} from "@/data/data";
+import React, {useRef, useState} from 'react';
+import {questions} from "@/data/data";
 import Button from "@/app/components/Button/Button";
 
 type QuestTaskProps = {
-    openQuiz: () => void; // Функція відкриття модального вікна
+    openQuiz: () => void;
 };
 
-const QuestTask = ({openQuiz} : QuestTaskProps) => {
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const QuestTask = ({openQuiz}: QuestTaskProps) => {
     const [currentQuestion, setCurrentQuest] = useState(0)
     const [score, setScore] = useState(0);
     const [userAnswer, setUserAnswer] = useState<string | boolean>("");
@@ -27,7 +29,7 @@ const QuestTask = ({openQuiz} : QuestTaskProps) => {
             setCurrentQuest(currentQuestion + 1)
             setUserAnswer('')
         } else {
-            setIsQuizFinished(true)
+            setIsQuizFinished(!isQuizFinished)
             modal.current?.close()
             resultModal.current?.showModal()
 
@@ -42,8 +44,8 @@ const QuestTask = ({openQuiz} : QuestTaskProps) => {
 
                     {questions[currentQuestion].type === "multiple-choice" &&
                         Array.isArray(questions[currentQuestion].options) &&
-                        questions[currentQuestion].options.map((option) => (
-                            <Button text={option} className={`block w-full p-2 mt-2 border rounded ${
+                        questions[currentQuestion].options.map((option, index) => (
+                            <Button key = {index} text={option} className={`block w-full p-2 mt-2 border rounded ${
                                 userAnswer === option ? "bg-orange-300" : ""
                             }`} onClick={() => setUserAnswer(option)}/>
                         ))}
@@ -67,7 +69,7 @@ const QuestTask = ({openQuiz} : QuestTaskProps) => {
                         </div>
                     )}
 
-                    {questions[currentQuestion].type === 'abc' && (
+                    {questions[currentQuestion].type === 'abc' && questions[currentQuestion].options && (
                         <div className="mt-3">
                             {Object.entries(questions[currentQuestion].options).map(([key, value]) => (
                                 <Button key={key} onClick={() => setUserAnswer(key)}
@@ -79,6 +81,7 @@ const QuestTask = ({openQuiz} : QuestTaskProps) => {
                             ))}
                         </div>
                     )}
+
 
 
                     <Button onClick={handleAnswer} className="mt-4 px-4 py-2 bg-orange-500 w-full text-white rounded"

@@ -1,6 +1,6 @@
 "use client"
 import React, {useRef, useState} from 'react';
-import tasks from "@/data/data";
+import {tasks} from "@/data/data";
 import Button from "@/app/components/Button/Button";
 
 const Map = () => {

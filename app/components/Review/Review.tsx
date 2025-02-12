@@ -1,9 +1,9 @@
 "use client"
-import React, {useState} from 'react';
+import React from 'react';
 import Button from "@/app/components/Button/Button";
 import {ReviewProps} from "@/types/types";
 
-const Review = ({text, rating, setRating, setText, handleChangeText, handleReviewSend}: ReviewProps) => {
+const Review = ({text, rating, setRating, handleChangeText, handleReviewSend}: ReviewProps) => {
 
     return (
         <dialog id="my_modal_1" className="modal">

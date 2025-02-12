@@ -92,7 +92,7 @@ const Register = ({id}: {id: string}) => {
                         }
                         <p className='text-center text-[#808080] text-[14px]'>Already have a Quest404 Account? <span
                             className='text-[#228EDF] cursor-pointer'
-                            onClick={() => {(document.getElementById('my_modal_6') as HTMLDialogElement).close(),
+                            onClick={() => {(document.getElementById('my_modal_6') as HTMLDialogElement).close();
                                 (document.getElementById('my_modal_5') as HTMLDialogElement | null)?.showModal()}}>Sign in here</span>
                         </p>
                     </div>
