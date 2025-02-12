@@ -251,6 +251,7 @@ function AddNewQuest() {
         {settingPage === 'mainSettings' && (
           <>
             <Box className="col-[2/-1] row-[1/2]">
+              <Heading as="h2">Create a new quest</Heading>
               <InputBox
                 heading="title"
                 inputOrTextarea="input"
@@ -259,7 +260,6 @@ function AddNewQuest() {
                 Enter a title, like “The Mystery of the Maya Civilization
               </InputBox>
 
-              <Heading as="h2">Create a new quest</Heading>
               <InputBox
                 heading="description"
                 inputOrTextarea="textarea"
