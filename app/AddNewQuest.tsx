@@ -1,89 +1,325 @@
 'use client';
 
-import {
-  ChangeEvent,
-  SyntheticEvent,
-  useCallback,
-  useEffect,
-  useId,
-  useRef,
-  useState,
-} from 'react';
-import CreateCardForm from './components/AddNewQuest/CreateCardForm';
+import { ChangeEvent } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import Card from './components/AddNewQuest/Card';
+import toast, { Toaster } from 'react-hot-toast';
+import Heading from './components/AddNewQuest/Heading';
+import Box from './components/AddNewQuest/Box';
 
-export type CardType = { id: string; term: string; definition: string };
+import InputBox from './components/AddNewQuest/InputBox';
+import Navigation from './components/AddNewQuest/Navigation';
+import InputFileBox from './components/AddNewQuest/InputFileBox';
+import Select from './components/AddNewQuest/Select';
+import { useAppDispatch, useAppSelector } from './store/hooks';
+import {
+  deleteImage as deleteImageTask,
+  setImage as setImageTask,
+  setTaskType,
+  TaskType,
+  toggleAnswers,
+  clear as clearTask,
+} from './store/createTaskSlice';
+import {
+  clear as clearQuest,
+  QuestImageType,
+  setImage as setImageQuest,
+  deleteImage as deleteImageQuest,
+  deleteTask,
+  Task,
+  addTask,
+} from './store/createQuestSlice';
+import { nanoid } from '@reduxjs/toolkit';
+import ImagePreview from './components/AddNewQuest/ImagePreview';
+import TaskPreview from './components/AddNewQuest/TaskPreview';
 
-export type Inputs = {
-  title: string;
+import ButtonBox from './components/AddNewQuest/ButtonBox';
+
+type SubmitQuestData = {
+  defeatMessage: string;
   description: string;
-  time: number;
-  cards: { term: string; definition: string }[];
+  title: string;
+  victoryMessage: string;
 };
 
 function AddNewQuest() {
-  const { register, handleSubmit } = useForm<Inputs>();
-  const [cards, manageCards] = useState<CardType[]>([]);
+  const dispatch = useAppDispatch();
+  const { settingPage, tasks, previewImage, backgroundImage } = useAppSelector(
+    store => store.createQuest,
+  );
 
-  const onSubmit: SubmitHandler<Inputs> = data =>
-    console.log({ id: Math.random() + useId(), ...data, cards });
+  const {
+    image: taskImage,
+    type: taskType,
+    correctAnswers,
+  } = useAppSelector(store => store.createTask);
 
-  function handleAddCard(card: CardType) {
-    manageCards(prevCards => [...prevCards, card]);
+  function handleSetImageTask(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    dispatch(setImageTask(file));
   }
 
-  function handleRemoveCard(id: string) {
-    manageCards(prevCards => [...prevCards.filter(card => card.id !== id)]);
+  function handleSetImageQuest(
+    e: ChangeEvent<HTMLInputElement>,
+    type: QuestImageType,
+  ) {
+    const file = e.target.files?.[0];
+    dispatch(setImageQuest({ file, type }));
   }
 
-  useEffect(() => {
-    console.log(cards);
-  }, [cards]);
+  function handleCheckTypeTask(e: ChangeEvent<HTMLSelectElement>) {
+    dispatch(setTaskType(e.target.value as TaskType));
+  }
+
+  function handleToggleAnswer(name: string) {
+    dispatch(toggleAnswers(name));
+  }
+
+  const {
+    reset: resetGeneralSettings,
+    register: registerGeneralSettings,
+    handleSubmit: handleSubmitQuest,
+  } = useForm<SubmitQuestData>();
+
+  const {
+    reset: resetTask,
+    register: registerTask,
+    handleSubmit: handleSubmitTask,
+  } = useForm<Record<string, string>>();
+
+  const onSubmitTask: SubmitHandler<Record<string, string>> = data => {
+    if (Object.values(correctAnswers).filter(el => el === true).length === 0)
+      return toast.error('Your should have at least one correct answer');
+
+    const {
+      answerFirst,
+      answerFourth,
+      answerSecond,
+      answerThird,
+      taskTitle,
+      time,
+      type,
+    } = data;
+
+    const newTask: Task = {
+      id: nanoid(),
+      title: taskTitle,
+      type: type as TaskType,
+      image: taskImage,
+      time: +time.split(' ').at(0)! || 0,
+      answers: { answerFirst, answerFourth, answerSecond, answerThird },
+      correctAnswers,
+    };
+
+    console.log(newTask);
+    dispatch(addTask(newTask));
+    dispatch(clearTask());
+    resetTask();
+    toast.success('The task is created');
+  };
+
+  const onSubmitQuest: SubmitHandler<SubmitQuestData> = data => {
+    if (tasks.length === 0)
+      return toast.error('You shoud have at least one term');
+    console.log(data);
+    const newQuest = {
+      id: nanoid(),
+      ...data,
+      author: 'хтось',
+      tasks,
+      previewImage,
+      backgroundImage,
+    };
+    console.log(newQuest);
+
+    resetGeneralSettings();
+    dispatch(clearQuest());
+    toast.success('The quest is created');
+  };
+
+  const submitFn =
+    settingPage === 'questions'
+      ? handleSubmitTask(onSubmitTask)
+      : handleSubmitQuest(onSubmitQuest);
 
   return (
-    <div className="overflow-hidden bg-green-300 p-12">
-      <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex items-center justify-between">
-          <h2 className="font-boldk text-center text-3xl uppercase">
-            Add new quest
-          </h2>
-          <button className="btn btn-primary btn-active">Create</button>
-        </div>
-        <label className="input input-bordered flex items-center gap-2">
-          Title:
-          <input required type="text" className="grow" {...register('title')} />
-        </label>
-        <label className="textarea textarea-bordered flex items-start gap-2 text-base">
-          Description:
-          <textarea
-            required
-            id="description"
-            className="textarea textarea-bordered grow"
-            {...register('description')}
-          ></textarea>
-        </label>
-        <label className="input input-bordered flex max-w-xs items-center gap-2">
-          Time:
-          <input
-            required
-            min={1}
-            max={120}
-            type="number"
-            className="grow appearance-none"
-            {...register('time')}
-          />
-        </label>
-        {cards?.map((cardData, i) => (
-          <Card
-            key={cardData.id}
-            card={cardData}
-            handleDelete={handleRemoveCard}
-          />
-        ))}
-        <CreateCardForm addCard={handleAddCard} />
-      </form>
-    </div>
+    <form onSubmit={submitFn}>
+      <div className="grid-rows-[repeat(auto, fit-content)] grid grid-cols-4 gap-[24px] bg-stone-200">
+        <Box className="col-[1/2] row-[1/2]">
+          <Navigation />
+        </Box>
+
+        {settingPage === 'questions' && (
+          <>
+            <Box className="col-[2/-1] row-[1/2] !gap-[48px]">
+              <InputBox
+                inputOrTextarea="input"
+                register={{ ...registerTask('taskTitle') }}
+              >
+                Task
+              </InputBox>
+
+              <Box className="!flex-row justify-between !p-[0px]">
+                <Select
+                  handleSelect={handleCheckTypeTask}
+                  register={{ ...registerTask('type') }}
+                  title="Task type"
+                  defaultValue={taskType}
+                  options={['quiz', 'Type answer', 'Find object in a pictures']}
+                />
+                <Select
+                  register={{ ...registerTask('time') }}
+                  title="Time limit"
+                  options={[
+                    'No limit',
+                    '10 seconds',
+                    '30 seconds',
+                    '60 seconds',
+                    '90 seconds',
+                  ]}
+                />
+              </Box>
+
+              {taskImage ? (
+                <ImagePreview
+                  imageSrc={taskImage}
+                  imageAlt="preview image for task"
+                  handleDelete={() => dispatch(deleteImageTask())}
+                />
+              ) : (
+                <InputFileBox handleSetImage={handleSetImageTask} />
+              )}
+
+              <Box className="!grid !grid-cols-2">
+                <InputBox
+                  heading={`answer ${taskType === 'quiz' ? '1' : ''}`}
+                  inputOrTextarea="input"
+                  register={{ ...registerTask('answerFirst') }}
+                  className={taskType !== 'quiz' ? 'col-span-full' : ''}
+                  toggleAnswer={handleToggleAnswer}
+                >
+                  Type here...
+                </InputBox>
+                {taskType === 'quiz' && (
+                  <>
+                    <InputBox
+                      heading="answer 2"
+                      inputOrTextarea="input"
+                      register={{ ...registerTask('answerSecond') }}
+                      toggleAnswer={handleToggleAnswer}
+                    >
+                      Type here...
+                    </InputBox>
+                    <InputBox
+                      heading="answer 3"
+                      inputOrTextarea="input"
+                      register={{ ...registerTask('answerThird') }}
+                      toggleAnswer={handleToggleAnswer}
+                      required={false}
+                    >
+                      Type here...
+                    </InputBox>
+                    <InputBox
+                      heading="answer 4"
+                      inputOrTextarea="input"
+                      register={{ ...registerTask('answerFourth') }}
+                      toggleAnswer={handleToggleAnswer}
+                      required={false}
+                    >
+                      Type here...
+                    </InputBox>
+                  </>
+                )}
+                <ButtonBox className="col-[2/3] w-full justify-end">
+                  <button
+                    className="btn h-[48px] w-[160px] border-inherit bg-[#7BAAAF] text-white"
+                    type="button"
+                    onClick={() => {
+                      dispatch(clearTask());
+                      resetTask();
+                    }}
+                  >
+                    Reset
+                  </button>
+                  <button
+                    className="btn h-[48px] w-[160px] border-inherit bg-[#7BAAAF] text-white"
+                    type="submit"
+                  >
+                    Add
+                  </button>
+                </ButtonBox>
+              </Box>
+            </Box>
+            {tasks.map(task => (
+              <TaskPreview
+                key={task.id}
+                handleDelete={() => dispatch(deleteTask(task.id.toString()))}
+                title={task.title}
+                className="col-[2/-1]"
+              />
+            ))}
+          </>
+        )}
+
+        {settingPage === 'mainSettings' && (
+          <>
+            <Box className="col-[2/-1] row-[1/2]">
+              <Heading as="h2">Create a new quest</Heading>
+              <InputBox
+                heading="title"
+                inputOrTextarea="input"
+                register={{ ...registerGeneralSettings('title') }}
+              >
+                Enter a title, like “The Mystery of the Maya Civilization
+              </InputBox>
+
+              <InputBox
+                heading="description"
+                inputOrTextarea="textarea"
+                register={{ ...registerGeneralSettings('description') }}
+              >
+                Add a description...
+              </InputBox>
+            </Box>
+
+            <Box className="col-[2/-1] row-[2/3]">
+              <Heading as="h2">Preview image</Heading>
+              {previewImage ? (
+                <ImagePreview
+                  imageSrc={previewImage}
+                  imageAlt="preview image for quest"
+                  handleDelete={() => dispatch(deleteImageQuest('preview'))}
+                />
+              ) : (
+                <InputFileBox
+                  handleSetImage={handleSetImageQuest}
+                  type="previewImage"
+                />
+              )}
+            </Box>
+
+            <Box className="col-[2/-1] row-[3/4]">
+              <Heading as="h2">Background image</Heading>
+
+              {backgroundImage ? (
+                <ImagePreview
+                  imageSrc={backgroundImage}
+                  imageAlt="preview image for background"
+                  handleDelete={() => dispatch(deleteImageQuest('background'))}
+                />
+              ) : (
+                <InputFileBox
+                  handleSetImage={handleSetImageQuest}
+                  type="backgroundImage"
+                  required={false}
+                />
+              )}
+            </Box>
+          </>
+        )}
+
+        <Toaster />
+      </div>
+    </form>
   );
 }
 

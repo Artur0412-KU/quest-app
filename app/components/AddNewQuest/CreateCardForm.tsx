@@ -1,7 +1,11 @@
 'use client';
 
 import { CardType } from '@/app/AddNewQuest';
+<<<<<<< HEAD
 import { ChangeEvent, useEffect, useState } from 'react';
+=======
+import { ChangeEvent, useState } from 'react';
+>>>>>>> ivan
 
 function CreateCardForm({ addCard }: { addCard: (card: CardType) => void }) {
   const [inputProps, setInputProps] = useState<CardType>({
@@ -21,9 +25,9 @@ function CreateCardForm({ addCard }: { addCard: (card: CardType) => void }) {
   }
 
   return (
-    <div className="mb-4 flex flex-col gap-8 rounded-xl bg-secondary-content p-8">
+    <div className="bg-secondary-content mb-4 flex flex-col gap-8 rounded-xl p-8">
       <div className="flex w-full flex-col lg:flex-row">
-        <div className="card grid flex-grow place-items-center rounded-box">
+        <div className="card rounded-box grid flex-grow place-items-center">
           <label className="input input-bordered flex w-full items-center gap-2">
             Term:
             <input
@@ -37,7 +41,7 @@ function CreateCardForm({ addCard }: { addCard: (card: CardType) => void }) {
           </label>
         </div>
         <div className="divider lg:divider-horizontal"></div>
-        <div className="card grid flex-grow place-items-center rounded-box">
+        <div className="card rounded-box grid flex-grow place-items-center">
           <label className="input input-bordered flex w-full items-center gap-2">
             Definition:
             <input
