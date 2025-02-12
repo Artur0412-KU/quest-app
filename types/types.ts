@@ -21,7 +21,9 @@ type QuestProps = {
     title?: string;
     description?: string;
     author?: string;
-    color?: string;
+  color?: string;
+  // img: string;
+  // img_bg: string;
 }
 
 type ReviewProps = {
